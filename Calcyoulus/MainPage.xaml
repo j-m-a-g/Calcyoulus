@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+	x:Class="Calcyoulus.MainPage"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+	Background="{DynamicResource LightAccent1}">
+
+	<Grid>
+
+		<StackLayout HorizontalOptions="Fill" VerticalOptions="Fill">
+
+			<Label
+				Padding="20"
+				FontSize="20"
+				HorizontalOptions="Fill"
+				Text="Home"
+				TextColor="{DynamicResource DarkAccent1}"
+				VerticalOptions="Start" />
+
+		</StackLayout>
+
+		<!--  Bottom Page Navigation Bar  -->
+		<Grid
+			ColumnSpacing="0"
+			HorizontalOptions="Fill"
+			VerticalOptions="End">
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="10" />
+			</Grid.RowDefinitions>
+
+			<!--  Home Navigation Button  -->
+			<ImageButton
+				Grid.Row="0"
+				Grid.Column="0"
+				Padding="10"
+				BackgroundColor="{DynamicResource LightAccent1}"
+				CornerRadius="100"
+				HeightRequest="55"
+				HorizontalOptions="Fill"
+				Source="home_96.png"
+				VerticalOptions="Fill"
+				WidthRequest="55" />
+			<!--  Geometry-Related Calculators Button  -->
+			<ImageButton
+				Grid.Row="0"
+				Grid.Column="1"
+				Padding="10"
+				BackgroundColor="{DynamicResource LightAccent1}"
+				CornerRadius="100"
+				HeightRequest="55"
+				HorizontalOptions="Fill"
+				Source="tesseract_96.png"
+				VerticalOptions="Fill"
+				WidthRequest="55" />
+			<Rectangle
+				x:Name="HomeImageButtonRectangle"
+				Grid.Row="1"
+				Grid.Column="0"
+				Background="{DynamicResource GreenAccent1}"
+				HeightRequest="5"
+				HorizontalOptions="Center"
+				VerticalOptions="Start"
+				WidthRequest="50" />
+			<Rectangle
+				x:Name="GeometryCalculatorsImageButtonRectangle"
+				Grid.Row="1"
+				Grid.Column="1"
+				Background="{DynamicResource GreenAccent1}"
+				HeightRequest="5"
+				HorizontalOptions="Center"
+				IsVisible="False"
+				VerticalOptions="Start"
+				WidthRequest="50" />
+
+		</Grid>
+
+	</Grid>
+
+	<!--  LOCAL APP RESOURCES  -->
+	<ContentPage.Resources>
+
+		<!--  Colors  -->
+		<Color x:Key="LightAccent1">#FFFFFF</Color>
+
+		<Color x:Key="DarkAccent1">#000000</Color>
+
+		<Color x:Key="GreenAccent1">#41c300</Color>
+
+	</ContentPage.Resources>
+
+</ContentPage>

@@ -7,10 +7,16 @@
 	Background="{DynamicResource LightAccent1}">
 
 	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="65" />
+		</Grid.RowDefinitions>
 
 		<StackLayout HorizontalOptions="Fill" VerticalOptions="Fill">
 
+			<!--  Top App Bar Page Label  -->
 			<Label
+				x:Name="CurrentPageNameLabel"
 				Padding="20"
 				FontSize="20"
 				HorizontalOptions="Fill"
@@ -18,10 +24,122 @@
 				TextColor="{DynamicResource DarkAccent1}"
 				VerticalOptions="Start" />
 
+			<!--  Home Page Stack Panel  -->
+			<ScrollView
+				Padding="10,0,10,0"
+				HorizontalScrollBarVisibility="Default"
+				VerticalScrollBarVisibility="Default">
+
+				<StackLayout>
+
+					<Label
+						Margin="0,0,0,10"
+						FontAttributes="Bold"
+						FontSize="30"
+						HorizontalOptions="Center"
+						Text="Quick Formulas"
+						TextColor="{DynamicResource DarkAccent1}" />
+
+					<!--  Area Formulas  -->
+					<material:MaterialCard
+						x:Name="AreaFormulasMaterialCard"
+						Background="{DynamicResource GreenAccent2}"
+						BorderColor="Transparent"
+						CornerRadius="10"
+						Elevation="0"
+						IsClickable="True">
+
+						<StackLayout>
+							<Label
+								FontSize="16"
+								Text="Area"
+								TextColor="{DynamicResource DarkAccent1}" />
+						</StackLayout>
+					</material:MaterialCard>
+					<material:MaterialCard
+						x:Name="AreaFormulasExpandedMaterialCard"
+						BorderColor="{DynamicResource DarkAccent2}"
+						CornerRadius="10"
+						Elevation="0">
+
+						<StackLayout>
+							<!--  Rectangle  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<Label Text="Rectangle" TextColor="{DynamicResource DarkAccent1}" />
+									<Label
+										FontAttributes="Italic"
+										Text="A = lwh"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Square  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<Label Text="Square" TextColor="{DynamicResource DarkAccent1}" />
+									<Label
+										FontAttributes="Italic"
+										Text="A = b²"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Triangle  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<Label Text="Triangle" TextColor="{DynamicResource DarkAccent1}" />
+									<Label
+										FontAttributes="Italic"
+										Text="A = (bh) ÷ 2"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+						</StackLayout>
+					</material:MaterialCard>
+
+					<!--  Volume Formulas  -->
+					<material:MaterialCard
+						x:Name="VolumeFormulasMaterialCard"
+						Background="{DynamicResource GreenAccent2}"
+						BorderColor="Transparent"
+						CornerRadius="10"
+						Elevation="0"
+						IsClickable="True">
+
+						<StackLayout>
+							<Label
+								FontSize="16"
+								Text="Volume"
+								TextColor="{DynamicResource DarkAccent1}" />
+						</StackLayout>
+					</material:MaterialCard>
+
+					<!--  Surface Area Formulas  -->
+					<material:MaterialCard
+						x:Name="SurfaceAreaFormulasMaterialCard"
+						Background="{DynamicResource GreenAccent2}"
+						BorderColor="Transparent"
+						CornerRadius="10"
+						Elevation="0"
+						IsClickable="True">
+
+						<StackLayout>
+							<Label
+								FontSize="16"
+								Text="Surface Area"
+								TextColor="{DynamicResource DarkAccent1}" />
+						</StackLayout>
+					</material:MaterialCard>
+
+				</StackLayout>
+
+			</ScrollView>
+
 		</StackLayout>
 
 		<!--  Bottom Page Navigation Bar  -->
 		<Grid
+			Grid.Row="1"
+			Background="{DynamicResource LightAccent1}"
 			ColumnSpacing="0"
 			HorizontalOptions="Fill"
 			VerticalOptions="End">
@@ -34,10 +152,10 @@
 			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*" />
-				<RowDefinition Height="10" />
+				<RowDefinition Height="5" />
 			</Grid.RowDefinitions>
 
-			<!--  Home Navigation Button  -->
+			<!--  Home Navigation Page Button  -->
 			<ImageButton
 				Grid.Row="0"
 				Grid.Column="0"
@@ -49,7 +167,7 @@
 				Source="home_96.png"
 				VerticalOptions="Fill"
 				WidthRequest="55" />
-			<!--  Geometry-Related Calculators Button  -->
+			<!--  Geometry-Related Calculators Navigation Button  -->
 			<ImageButton
 				Grid.Row="0"
 				Grid.Column="1"
@@ -61,6 +179,32 @@
 				Source="tesseract_96.png"
 				VerticalOptions="Fill"
 				WidthRequest="55" />
+			<!--  Linear Relations-Related Calculators Navigation Button  -->
+			<ImageButton
+				Grid.Row="0"
+				Grid.Column="2"
+				Padding="10"
+				BackgroundColor="{DynamicResource LightAccent1}"
+				CornerRadius="100"
+				HeightRequest="55"
+				HorizontalOptions="Fill"
+				Source="plot_96.png"
+				VerticalOptions="Fill"
+				WidthRequest="55" />
+			<!--  Settings Page Navigation Button  -->
+			<ImageButton
+				Grid.Row="0"
+				Grid.Column="3"
+				Padding="10"
+				BackgroundColor="{DynamicResource LightAccent1}"
+				CornerRadius="100"
+				HeightRequest="55"
+				HorizontalOptions="Fill"
+				Source="settings_96.png"
+				VerticalOptions="Fill"
+				WidthRequest="55" />
+
+			<!--  Home Image Button Page Indicator  -->
 			<Rectangle
 				x:Name="HomeImageButtonRectangle"
 				Grid.Row="1"
@@ -68,8 +212,9 @@
 				Background="{DynamicResource GreenAccent1}"
 				HeightRequest="5"
 				HorizontalOptions="Center"
-				VerticalOptions="Start"
+				VerticalOptions="End"
 				WidthRequest="50" />
+			<!--  Geometry-Related Calculators Page Indicator  -->
 			<Rectangle
 				x:Name="GeometryCalculatorsImageButtonRectangle"
 				Grid.Row="1"
@@ -78,7 +223,7 @@
 				HeightRequest="5"
 				HorizontalOptions="Center"
 				IsVisible="False"
-				VerticalOptions="Start"
+				VerticalOptions="End"
 				WidthRequest="50" />
 
 		</Grid>
@@ -92,8 +237,10 @@
 		<Color x:Key="LightAccent1">#FFFFFF</Color>
 
 		<Color x:Key="DarkAccent1">#000000</Color>
+		<Color x:Key="DarkAccent2">#f0f0f0</Color>
 
-		<Color x:Key="GreenAccent1">#41c300</Color>
+		<Color x:Key="GreenAccent1">#61d800</Color>
+		<Color x:Key="GreenAccent2">#defabb</Color>
 
 	</ContentPage.Resources>
 

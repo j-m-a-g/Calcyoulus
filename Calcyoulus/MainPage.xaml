@@ -7,6 +7,7 @@
 	Background="{DynamicResource LightAccent1}">
 
 	<Grid>
+
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*" />
 			<RowDefinition Height="65" />
@@ -24,8 +25,9 @@
 				TextColor="{DynamicResource DarkAccent1}"
 				VerticalOptions="Start" />
 
-			<!--  Home Page Stack Panel  -->
+			<!--  Home Page ScrollView  -->
 			<ScrollView
+				x:Name="HomePageScrollView"
 				Padding="10,0,10,0"
 				HorizontalScrollBarVisibility="Default"
 				VerticalScrollBarVisibility="Default">
@@ -40,7 +42,7 @@
 						Text="Quick Formulas"
 						TextColor="{DynamicResource DarkAccent1}" />
 
-					<!--  Area Formulas  -->
+					<!--  Area Formulas MaterialCard  -->
 					<material:MaterialCard
 						x:Name="AreaFormulasMaterialCard"
 						Background="{DynamicResource GreenAccent2}"
@@ -55,6 +57,7 @@
 								Text="Area"
 								TextColor="{DynamicResource DarkAccent1}" />
 						</StackLayout>
+
 					</material:MaterialCard>
 					<material:MaterialCard
 						x:Name="AreaFormulasExpandedMaterialCard"
@@ -63,23 +66,36 @@
 						Elevation="0">
 
 						<StackLayout>
-							<!--  Rectangle  -->
-							<material:MaterialCard CornerRadius="10" Elevation="1">
-								<StackLayout>
-									<Label Text="Rectangle" TextColor="{DynamicResource DarkAccent1}" />
-									<Label
-										FontAttributes="Italic"
-										Text="A = lwh"
-										TextColor="{DynamicResource DarkAccent1}" />
-								</StackLayout>
-							</material:MaterialCard>
 							<!--  Square  -->
 							<material:MaterialCard CornerRadius="10" Elevation="1">
 								<StackLayout>
 									<Label Text="Square" TextColor="{DynamicResource DarkAccent1}" />
 									<Label
 										FontAttributes="Italic"
+										FontSize="16"
 										Text="A = b²"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Rectangle  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<Label Text="Rectangle" TextColor="{DynamicResource DarkAccent1}" />
+									<Label
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="A = lwh"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Parallelogram  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<Label Text="Parallelogram" TextColor="{DynamicResource DarkAccent1}" />
+									<Label
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="A = bh"
 										TextColor="{DynamicResource DarkAccent1}" />
 								</StackLayout>
 							</material:MaterialCard>
@@ -89,14 +105,38 @@
 									<Label Text="Triangle" TextColor="{DynamicResource DarkAccent1}" />
 									<Label
 										FontAttributes="Italic"
+										FontSize="16"
 										Text="A = (bh) ÷ 2"
 										TextColor="{DynamicResource DarkAccent1}" />
 								</StackLayout>
 							</material:MaterialCard>
+							<!--  Trapezoid  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<Label Text="Trapezoid" TextColor="{DynamicResource DarkAccent1}" />
+									<Label
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="A = ((a + b)h) ÷ 2"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Circle  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<Label Text="Circle" TextColor="{DynamicResource DarkAccent1}" />
+									<Label
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="A = r²π"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
 						</StackLayout>
+
 					</material:MaterialCard>
 
-					<!--  Volume Formulas  -->
+					<!--  Volume Formulas MaterialCard  -->
 					<material:MaterialCard
 						x:Name="VolumeFormulasMaterialCard"
 						Background="{DynamicResource GreenAccent2}"
@@ -111,9 +151,88 @@
 								Text="Volume"
 								TextColor="{DynamicResource DarkAccent1}" />
 						</StackLayout>
+
+					</material:MaterialCard>
+					<material:MaterialCard
+						x:Name="VolumeFormulasExpandedMaterialCard"
+						BorderColor="{DynamicResource DarkAccent2}"
+						CornerRadius="10"
+						Elevation="0">
+
+						<StackLayout>
+
+							<!--  Cylinder  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<Label Text="Cylinder" TextColor="{DynamicResource DarkAccent1}" />
+									<Label
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="V = r²hπ"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Sphere  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<Label Text="Sphere" TextColor="{DynamicResource DarkAccent1}" />
+									<Label
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="V = (4r³π) ÷ 3"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Cone  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<Label Text="Cone" TextColor="{DynamicResource DarkAccent1}" />
+									<Label
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="V = (r²hπ) ÷ 3"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Square-Based Pyramid  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<Label Text="Square-Based Pyramid" TextColor="{DynamicResource DarkAccent1}" />
+									<Label
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="V = (b²h) ÷ 3"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Rectangular Prism  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<Label Text="Rectangular Prism" TextColor="{DynamicResource DarkAccent1}" />
+									<Label
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="V = lwh"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Triangular Prism  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<Label Text="Triangular Prism" TextColor="{DynamicResource DarkAccent1}" />
+									<Label
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="V = blh ÷ 2"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+
+						</StackLayout>
+
 					</material:MaterialCard>
 
-					<!--  Surface Area Formulas  -->
+					<!--  Surface Area Formulas MaterialCard  -->
 					<material:MaterialCard
 						x:Name="SurfaceAreaFormulasMaterialCard"
 						Background="{DynamicResource GreenAccent2}"
@@ -134,9 +253,45 @@
 
 			</ScrollView>
 
+			<!--  Geometry-Related Calculators Page ScrollView  -->
+			<ScrollView
+				x:Name="GeometryCalculatorsPageScrollView"
+				Padding="10,0,10,0"
+				HorizontalScrollBarVisibility="Default"
+				IsVisible="False"
+				VerticalScrollBarVisibility="Default">
+
+				<StackLayout />
+
+			</ScrollView>
+
+			<!--  Linear Relations-Related Calculators Page ScrollView  -->
+			<ScrollView
+				x:Name="LinearCalculatorsScrollView"
+				Padding="10,0,10,0"
+				HorizontalScrollBarVisibility="Default"
+				IsVisible="False"
+				VerticalScrollBarVisibility="Default">
+
+				<StackLayout />
+
+			</ScrollView>
+
+			<!--  Settings Page ScrollView  -->
+			<ScrollView
+				x:Name="SettingsPageScrollView"
+				Padding="10,0,10,0"
+				HorizontalScrollBarVisibility="Default"
+				IsVisible="False"
+				VerticalScrollBarVisibility="Default">
+
+				<StackLayout />
+
+			</ScrollView>
+
 		</StackLayout>
 
-		<!--  Bottom Page Navigation Bar  -->
+		<!--  Bottom Page Navigation Bar Grid  -->
 		<Grid
 			Grid.Row="1"
 			Background="{DynamicResource LightAccent1}"
@@ -155,8 +310,10 @@
 				<RowDefinition Height="5" />
 			</Grid.RowDefinitions>
 
-			<!--  Home Navigation Page Button  -->
+			<!--  Home Navigation Page ImageButton  -->
 			<ImageButton
+				Clicked="HomeNavigationPageImageButton_Clicked"
+				x:Name="HomeNavigationPageImageButton"
 				Grid.Row="0"
 				Grid.Column="0"
 				Padding="10"
@@ -167,8 +324,9 @@
 				Source="home_96.png"
 				VerticalOptions="Fill"
 				WidthRequest="55" />
-			<!--  Geometry-Related Calculators Navigation Button  -->
+			<!--  Geometry-Related Calculators Navigation ImageButton  -->
 			<ImageButton
+				x:Name="GeometryCalculatorsNavIgationImageButton"
 				Grid.Row="0"
 				Grid.Column="1"
 				Padding="10"
@@ -179,8 +337,9 @@
 				Source="tesseract_96.png"
 				VerticalOptions="Fill"
 				WidthRequest="55" />
-			<!--  Linear Relations-Related Calculators Navigation Button  -->
+			<!--  Linear Relations-Related Calculators Navigation ImageButton  -->
 			<ImageButton
+				x:Name="LinearCalculatorsNavigationImageButton"
 				Grid.Row="0"
 				Grid.Column="2"
 				Padding="10"
@@ -191,8 +350,9 @@
 				Source="plot_96.png"
 				VerticalOptions="Fill"
 				WidthRequest="55" />
-			<!--  Settings Page Navigation Button  -->
+			<!--  Settings Page Navigation ImageButton  -->
 			<ImageButton
+				x:Name="SettingsNavigationImageButton"
 				Grid.Row="0"
 				Grid.Column="3"
 				Padding="10"
@@ -204,7 +364,7 @@
 				VerticalOptions="Fill"
 				WidthRequest="55" />
 
-			<!--  Home Image Button Page Indicator  -->
+			<!--  Home Image Button Page Indicator Rectangle  -->
 			<Rectangle
 				x:Name="HomeImageButtonRectangle"
 				Grid.Row="1"
@@ -214,11 +374,33 @@
 				HorizontalOptions="Center"
 				VerticalOptions="End"
 				WidthRequest="50" />
-			<!--  Geometry-Related Calculators Page Indicator  -->
+			<!--  Geometry-Related Calculators Page Indicator Rectangle  -->
 			<Rectangle
 				x:Name="GeometryCalculatorsImageButtonRectangle"
 				Grid.Row="1"
 				Grid.Column="1"
+				Background="{DynamicResource GreenAccent1}"
+				HeightRequest="5"
+				HorizontalOptions="Center"
+				IsVisible="False"
+				VerticalOptions="End"
+				WidthRequest="50" />
+			<!--  Linear Relations-Related Calculators Page Indicator Rectangle  -->
+			<Rectangle
+				x:Name="LinearCalculatorsImageButtonRectangle"
+				Grid.Row="1"
+				Grid.Column="2"
+				Background="{DynamicResource GreenAccent1}"
+				HeightRequest="5"
+				HorizontalOptions="Center"
+				IsVisible="False"
+				VerticalOptions="End"
+				WidthRequest="50" />
+			<!--  Settings Page Indicator Rectangle  -->
+			<Rectangle
+				x:Name="SettingsImageButtonRectangle"
+				Grid.Row="1"
+				Grid.Column="2"
 				Background="{DynamicResource GreenAccent1}"
 				HeightRequest="5"
 				HorizontalOptions="Center"

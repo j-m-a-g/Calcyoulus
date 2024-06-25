@@ -4,19 +4,20 @@
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-	Background="{DynamicResource LightAccent1}">
+	xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
+	BackgroundColor="{DynamicResource LightAccent1}">
 
 	<Grid>
 
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*" />
-			<RowDefinition Height="65" />
+			<RowDefinition Height="120" />
 		</Grid.RowDefinitions>
 
 		<StackLayout HorizontalOptions="Fill" VerticalOptions="Fill">
 
-			<!--  Top App Bar Page Label  -->
-			<Label
+			<!--  Top App Bar Page MaterialLabel  -->
+			<material:MaterialLabel
 				x:Name="CurrentPageNameLabel"
 				Padding="20"
 				FontSize="20"
@@ -34,43 +35,56 @@
 
 				<StackLayout>
 
-					<Label
-						Margin="0,0,0,10"
-						FontAttributes="Bold"
-						FontSize="30"
-						HorizontalOptions="Center"
-						Text="Quick Formulas"
-						TextColor="{DynamicResource DarkAccent1}" />
-
-					<!--  Area Formulas MaterialCard  -->
+					<!--  Quick Formulas MaterialCard  -->
 					<material:MaterialCard
-						x:Name="AreaFormulasMaterialCard"
-						Background="{DynamicResource GreenAccent2}"
-						BorderColor="Transparent"
+						x:Name="QuickFormulasMaterialCard"
+						BackgroundColor="{DynamicResource GreenAccent2}"
+						Clicked="QuickFormulasMaterialCard_Clicked"
 						CornerRadius="10"
 						Elevation="0"
 						IsClickable="True">
 
-						<StackLayout>
-							<Label
-								FontSize="16"
-								Text="Area"
-								TextColor="{DynamicResource DarkAccent1}" />
+						<StackLayout Orientation="Horizontal">
+
+							<material:MaterialLabel
+								FontSize="18"
+								HorizontalOptions="Start"
+								Text="Quick Formulas"
+								TextColor="{DynamicResource DarkAccent1}"
+								VerticalOptions="Center" />
+							<material:MaterialIcon
+								x:Name="ExpandCollapseQuickFormulasMaterialIcon"
+								BackgroundColor="Transparent"
+								HeightRequest="24"
+								HorizontalOptions="EndAndExpand"
+								Source="expand_96.png"
+								VerticalOptions="Center"
+								WidthRequest="24" />
+
 						</StackLayout>
 
 					</material:MaterialCard>
+
+					<!--  Area Formulas MaterialCard  -->
 					<material:MaterialCard
-						x:Name="AreaFormulasExpandedMaterialCard"
+						x:Name="AreaFormulasMaterialCard"
 						BorderColor="{DynamicResource DarkAccent2}"
 						CornerRadius="10"
-						Elevation="0">
+						Elevation="0"
+						IsVisible="False">
 
 						<StackLayout>
+
+							<material:MaterialLabel
+								FontAttributes="Bold"
+								Text="AREA"
+								TextColor="{DynamicResource DarkAccent1}" />
+
 							<!--  Square  -->
 							<material:MaterialCard CornerRadius="10" Elevation="1">
 								<StackLayout>
-									<Label Text="Square" TextColor="{DynamicResource DarkAccent1}" />
-									<Label
+									<material:MaterialLabel Text="Square" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
 										FontAttributes="Italic"
 										FontSize="16"
 										Text="A = b²"
@@ -80,8 +94,8 @@
 							<!--  Rectangle  -->
 							<material:MaterialCard CornerRadius="10" Elevation="1">
 								<StackLayout>
-									<Label Text="Rectangle" TextColor="{DynamicResource DarkAccent1}" />
-									<Label
+									<material:MaterialLabel Text="Rectangle" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
 										FontAttributes="Italic"
 										FontSize="16"
 										Text="A = lwh"
@@ -91,8 +105,8 @@
 							<!--  Parallelogram  -->
 							<material:MaterialCard CornerRadius="10" Elevation="1">
 								<StackLayout>
-									<Label Text="Parallelogram" TextColor="{DynamicResource DarkAccent1}" />
-									<Label
+									<material:MaterialLabel Text="Parallelogram" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
 										FontAttributes="Italic"
 										FontSize="16"
 										Text="A = bh"
@@ -102,8 +116,8 @@
 							<!--  Triangle  -->
 							<material:MaterialCard CornerRadius="10" Elevation="1">
 								<StackLayout>
-									<Label Text="Triangle" TextColor="{DynamicResource DarkAccent1}" />
-									<Label
+									<material:MaterialLabel Text="Triangle" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
 										FontAttributes="Italic"
 										FontSize="16"
 										Text="A = (bh) ÷ 2"
@@ -113,8 +127,8 @@
 							<!--  Trapezoid  -->
 							<material:MaterialCard CornerRadius="10" Elevation="1">
 								<StackLayout>
-									<Label Text="Trapezoid" TextColor="{DynamicResource DarkAccent1}" />
-									<Label
+									<material:MaterialLabel Text="Trapezoid" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
 										FontAttributes="Italic"
 										FontSize="16"
 										Text="A = ((a + b)h) ÷ 2"
@@ -124,14 +138,15 @@
 							<!--  Circle  -->
 							<material:MaterialCard CornerRadius="10" Elevation="1">
 								<StackLayout>
-									<Label Text="Circle" TextColor="{DynamicResource DarkAccent1}" />
-									<Label
+									<material:MaterialLabel Text="Circle" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
 										FontAttributes="Italic"
 										FontSize="16"
 										Text="A = r²π"
 										TextColor="{DynamicResource DarkAccent1}" />
 								</StackLayout>
 							</material:MaterialCard>
+
 						</StackLayout>
 
 					</material:MaterialCard>
@@ -139,33 +154,23 @@
 					<!--  Volume Formulas MaterialCard  -->
 					<material:MaterialCard
 						x:Name="VolumeFormulasMaterialCard"
-						Background="{DynamicResource GreenAccent2}"
-						BorderColor="Transparent"
-						CornerRadius="10"
-						Elevation="0"
-						IsClickable="True">
-
-						<StackLayout>
-							<Label
-								FontSize="16"
-								Text="Volume"
-								TextColor="{DynamicResource DarkAccent1}" />
-						</StackLayout>
-
-					</material:MaterialCard>
-					<material:MaterialCard
-						x:Name="VolumeFormulasExpandedMaterialCard"
 						BorderColor="{DynamicResource DarkAccent2}"
 						CornerRadius="10"
-						Elevation="0">
+						Elevation="0"
+						IsVisible="False">
 
 						<StackLayout>
+
+							<material:MaterialLabel
+								FontAttributes="Bold"
+								Text="VOLUME"
+								TextColor="{DynamicResource DarkAccent1}" />
 
 							<!--  Cylinder  -->
 							<material:MaterialCard CornerRadius="10" Elevation="1">
 								<StackLayout>
-									<Label Text="Cylinder" TextColor="{DynamicResource DarkAccent1}" />
-									<Label
+									<material:MaterialLabel Text="Cylinder" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
 										FontAttributes="Italic"
 										FontSize="16"
 										Text="V = r²hπ"
@@ -175,8 +180,8 @@
 							<!--  Sphere  -->
 							<material:MaterialCard CornerRadius="10" Elevation="1">
 								<StackLayout>
-									<Label Text="Sphere" TextColor="{DynamicResource DarkAccent1}" />
-									<Label
+									<material:MaterialLabel Text="Sphere" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
 										FontAttributes="Italic"
 										FontSize="16"
 										Text="V = (4r³π) ÷ 3"
@@ -186,8 +191,8 @@
 							<!--  Cone  -->
 							<material:MaterialCard CornerRadius="10" Elevation="1">
 								<StackLayout>
-									<Label Text="Cone" TextColor="{DynamicResource DarkAccent1}" />
-									<Label
+									<material:MaterialLabel Text="Cone" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
 										FontAttributes="Italic"
 										FontSize="16"
 										Text="V = (r²hπ) ÷ 3"
@@ -197,8 +202,8 @@
 							<!--  Square-Based Pyramid  -->
 							<material:MaterialCard CornerRadius="10" Elevation="1">
 								<StackLayout>
-									<Label Text="Square-Based Pyramid" TextColor="{DynamicResource DarkAccent1}" />
-									<Label
+									<material:MaterialLabel Text="Square-Based Pyramid" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
 										FontAttributes="Italic"
 										FontSize="16"
 										Text="V = (b²h) ÷ 3"
@@ -208,8 +213,8 @@
 							<!--  Rectangular Prism  -->
 							<material:MaterialCard CornerRadius="10" Elevation="1">
 								<StackLayout>
-									<Label Text="Rectangular Prism" TextColor="{DynamicResource DarkAccent1}" />
-									<Label
+									<material:MaterialLabel Text="Rectangular Prism" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
 										FontAttributes="Italic"
 										FontSize="16"
 										Text="V = lwh"
@@ -219,8 +224,8 @@
 							<!--  Triangular Prism  -->
 							<material:MaterialCard CornerRadius="10" Elevation="1">
 								<StackLayout>
-									<Label Text="Triangular Prism" TextColor="{DynamicResource DarkAccent1}" />
-									<Label
+									<material:MaterialLabel Text="Triangular Prism" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
 										FontAttributes="Italic"
 										FontSize="16"
 										Text="V = blh ÷ 2"
@@ -235,18 +240,259 @@
 					<!--  Surface Area Formulas MaterialCard  -->
 					<material:MaterialCard
 						x:Name="SurfaceAreaFormulasMaterialCard"
-						Background="{DynamicResource GreenAccent2}"
-						BorderColor="Transparent"
+						BorderColor="{DynamicResource DarkAccent2}"
+						CornerRadius="10"
+						Elevation="0"
+						IsVisible="False">
+
+						<StackLayout>
+
+							<material:MaterialLabel
+								FontAttributes="Bold"
+								Text="SURFACE AREA"
+								TextColor="{DynamicResource DarkAccent1}" />
+
+							<!--  Cylinder  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<material:MaterialLabel Text="Cylinder" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="SA = 2r²π + 2rsπ"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Sphere  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<material:MaterialLabel Text="Sphere" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="SA = 4r²π"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Cone  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<material:MaterialLabel Text="Cone" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="SA = r²π + rsπ"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Square-Based Pyramid  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<material:MaterialLabel Text="Square-Based Pyramid" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="SA = b² + 2bs"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Rectangular Prism  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<material:MaterialLabel Text="Rectangular Prism" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="SA = 2(wh + lw + lh)"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Triangular Prism  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<material:MaterialLabel Text="Triangular Prism" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="SA = bl + ah + bh + ch"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+
+						</StackLayout>
+
+					</material:MaterialCard>
+
+					<!--  Perimeter Formulas MaterialCard  -->
+					<material:MaterialCard
+						x:Name="PerimeterFormulasMaterialCard"
+						BorderColor="{DynamicResource DarkAccent2}"
+						CornerRadius="10"
+						Elevation="0"
+						IsVisible="False">
+
+						<StackLayout>
+
+							<material:MaterialLabel
+								FontAttributes="Bold"
+								Text="PERIMETER"
+								TextColor="{DynamicResource DarkAccent1}" />
+
+							<!--  Square  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<material:MaterialLabel Text="Square" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="P = 4b"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Rectangle  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<material:MaterialLabel Text="Rectangle" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="P = 2(l+w)"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Parallelogram  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<material:MaterialLabel Text="Parallelogram" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="P = (b + c)"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Triangle  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<material:MaterialLabel Text="Triangle" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="P = a + b + c"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Trapezoid  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<material:MaterialLabel Text="Trapezoid" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="P = a + b + c + d"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+							<!--  Circle  -->
+							<material:MaterialCard CornerRadius="10" Elevation="1">
+								<StackLayout>
+									<material:MaterialLabel Text="Circle" TextColor="{DynamicResource DarkAccent1}" />
+									<material:MaterialLabel
+										FontAttributes="Italic"
+										FontSize="16"
+										Text="C = dπ or C = 2rπ"
+										TextColor="{DynamicResource DarkAccent1}" />
+								</StackLayout>
+							</material:MaterialCard>
+
+						</StackLayout>
+
+					</material:MaterialCard>
+
+					<!--  Unit Conversions MaterialCard  -->
+					<material:MaterialCard
+						x:Name="UnitConversionsMaterialCard"
+						BackgroundColor="{DynamicResource GreenAccent2}"
 						CornerRadius="10"
 						Elevation="0"
 						IsClickable="True">
 
-						<StackLayout>
-							<Label
-								FontSize="16"
-								Text="Surface Area"
-								TextColor="{DynamicResource DarkAccent1}" />
+						<StackLayout Orientation="Horizontal">
+
+							<material:MaterialLabel
+								FontSize="18"
+								HorizontalOptions="Start"
+								Text="Unit Conversions"
+								TextColor="{DynamicResource DarkAccent1}"
+								VerticalOptions="Center" />
+							<material:MaterialIcon
+								x:Name="ExpandCollapseUnitConversionsMaterialIcon"
+								BackgroundColor="Transparent"
+								HeightRequest="24"
+								HorizontalOptions="EndAndExpand"
+								Source="expand_96.png"
+								VerticalOptions="Center"
+								WidthRequest="24" />
+
 						</StackLayout>
+
+					</material:MaterialCard>
+					<material:MaterialCard
+						x:Name="UnitConversionsExpandedMaterialCard"
+						BorderColor="{DynamicResource DarkAccent2}"
+						CornerRadius="10"
+						Elevation="0"
+						IsVisible="True">
+
+						<material:MaterialCard CornerRadius="10">
+
+							<StackLayout>
+
+								<material:MaterialLabel
+									FontAttributes="Bold"
+									Text="LENGTH"
+									TextColor="{DynamicResource DarkAccent1}" />
+
+								<Grid>
+
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+
+									<Picker
+										Title="From"
+										Grid.Column="0"
+										ItemsSource="{DynamicResource LengthUnitConversions}"
+										TextColor="{DynamicResource DarkAccent1}"
+										TitleColor="{DynamicResource DarkAccent3}" />
+									<Image
+										Grid.Column="1"
+										HeightRequest="24"
+										Source="double_right_96.png"
+										WidthRequest="24" />
+									<Picker
+										Title="To"
+										Grid.Column="2"
+										ItemsSource="{DynamicResource LengthUnitConversions}"
+										TextColor="{DynamicResource DarkAccent1}"
+										TitleColor="{DynamicResource DarkAccent3}" />
+
+								</Grid>
+
+								<material:MaterialTextField
+									AlwaysShowUnderline="True"
+									BackgroundColor="White"
+									InputType="Numeric"
+									Placeholder="Value"
+									PlaceholderColor="{DynamicResource DarkAccent1}"
+									UnderlineColor="{DynamicResource GreenAccent1}" />
+
+							</StackLayout>
+
+						</material:MaterialCard>
+
 					</material:MaterialCard>
 
 				</StackLayout>
@@ -285,7 +531,23 @@
 				IsVisible="False"
 				VerticalScrollBarVisibility="Default">
 
-				<StackLayout />
+				<StackLayout>
+
+					<material:MaterialLabel
+						Margin="0,0,0,10"
+						FontAttributes="Bold"
+						FontSize="30"
+						HorizontalOptions="Center"
+						Text="About"
+						TextColor="{DynamicResource DarkAccent1}" />
+					<material:MaterialLabel
+						Margin="0,0,0,10"
+						FontSize="20"
+						HorizontalOptions="Center"
+						Text="Calcyoulus v1.26.4"
+						TextColor="{DynamicResource DarkAccent1}" />
+
+				</StackLayout>
 
 			</ScrollView>
 
@@ -306,18 +568,67 @@
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
+				<RowDefinition Height="55" />
 				<RowDefinition Height="*" />
 				<RowDefinition Height="5" />
 			</Grid.RowDefinitions>
 
+			<!--  Universal Answer Grid  -->
+			<Grid
+				Grid.Row="0"
+				Grid.Column="0"
+				Grid.ColumnSpan="4">
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="50" />
+					<ColumnDefinition Width="70" />
+				</Grid.ColumnDefinitions>
+
+				<!--  Calculation Answer Entry  -->
+				<Entry
+					x:Name="CalculationAnswerEntry"
+					Grid.Column="0"
+					Margin="5,0,0,0"
+					BackgroundColor="{DynamicResource LightAccent1}"
+					HeightRequest="55"
+					IsReadOnly="True"
+					Placeholder="Answer"
+					PlaceholderColor="{DynamicResource DarkAccent3}"
+					TextColor="{DynamicResource DarkAccent1}" />
+
+				<Picker
+					x:Name="AnswerUnitPicker"
+					Title="Unit"
+					Grid.Column="1"
+					BackgroundColor="{DynamicResource LightAccent1}"
+					HeightRequest="55"
+					HorizontalTextAlignment="Center"
+					ItemsSource="{DynamicResource UnitsPickerArray}"
+					SelectedIndex="0"
+					SelectedIndexChanged="AnswerUnitPicker_SelectedIndexChanged"
+					TextColor="{DynamicResource DarkAccent1}"
+					TitleColor="{DynamicResource DarkAccent3}" />
+
+				<ImageButton
+					Grid.Column="2"
+					Padding="15"
+					BackgroundColor="{DynamicResource LightAccent2}"
+					CornerRadius="100"
+					HorizontalOptions="Center"
+					IsEnabled="False"
+					Source="copy_96.png" />
+
+			</Grid>
+
 			<!--  Home Navigation Page ImageButton  -->
 			<ImageButton
-				Clicked="HomeNavigationPageImageButton_Clicked"
 				x:Name="HomeNavigationPageImageButton"
-				Grid.Row="0"
+				Grid.Row="1"
 				Grid.Column="0"
 				Padding="10"
 				BackgroundColor="{DynamicResource LightAccent1}"
+				Clicked="HomeNavigationPageImageButton_Clicked"
 				CornerRadius="100"
 				HeightRequest="55"
 				HorizontalOptions="Fill"
@@ -326,11 +637,12 @@
 				WidthRequest="55" />
 			<!--  Geometry-Related Calculators Navigation ImageButton  -->
 			<ImageButton
-				x:Name="GeometryCalculatorsNavIgationImageButton"
-				Grid.Row="0"
+				x:Name="GeometryCalculatorsNavigationImageButton"
+				Grid.Row="1"
 				Grid.Column="1"
 				Padding="10"
 				BackgroundColor="{DynamicResource LightAccent1}"
+				Clicked="GeometryCalculatorsNavigationImageButton_Clicked"
 				CornerRadius="100"
 				HeightRequest="55"
 				HorizontalOptions="Fill"
@@ -340,10 +652,11 @@
 			<!--  Linear Relations-Related Calculators Navigation ImageButton  -->
 			<ImageButton
 				x:Name="LinearCalculatorsNavigationImageButton"
-				Grid.Row="0"
+				Grid.Row="1"
 				Grid.Column="2"
 				Padding="10"
 				BackgroundColor="{DynamicResource LightAccent1}"
+				Clicked="LinearCalculatorsNavigationImageButton_Clicked"
 				CornerRadius="100"
 				HeightRequest="55"
 				HorizontalOptions="Fill"
@@ -353,10 +666,11 @@
 			<!--  Settings Page Navigation ImageButton  -->
 			<ImageButton
 				x:Name="SettingsNavigationImageButton"
-				Grid.Row="0"
+				Grid.Row="1"
 				Grid.Column="3"
 				Padding="10"
 				BackgroundColor="{DynamicResource LightAccent1}"
+				Clicked="SettingsNavigationImageButton_Clicked"
 				CornerRadius="100"
 				HeightRequest="55"
 				HorizontalOptions="Fill"
@@ -367,7 +681,7 @@
 			<!--  Home Image Button Page Indicator Rectangle  -->
 			<Rectangle
 				x:Name="HomeImageButtonRectangle"
-				Grid.Row="1"
+				Grid.Row="2"
 				Grid.Column="0"
 				Background="{DynamicResource GreenAccent1}"
 				HeightRequest="5"
@@ -377,7 +691,7 @@
 			<!--  Geometry-Related Calculators Page Indicator Rectangle  -->
 			<Rectangle
 				x:Name="GeometryCalculatorsImageButtonRectangle"
-				Grid.Row="1"
+				Grid.Row="2"
 				Grid.Column="1"
 				Background="{DynamicResource GreenAccent1}"
 				HeightRequest="5"
@@ -388,7 +702,7 @@
 			<!--  Linear Relations-Related Calculators Page Indicator Rectangle  -->
 			<Rectangle
 				x:Name="LinearCalculatorsImageButtonRectangle"
-				Grid.Row="1"
+				Grid.Row="2"
 				Grid.Column="2"
 				Background="{DynamicResource GreenAccent1}"
 				HeightRequest="5"
@@ -399,8 +713,8 @@
 			<!--  Settings Page Indicator Rectangle  -->
 			<Rectangle
 				x:Name="SettingsImageButtonRectangle"
-				Grid.Row="1"
-				Grid.Column="2"
+				Grid.Row="2"
+				Grid.Column="3"
 				Background="{DynamicResource GreenAccent1}"
 				HeightRequest="5"
 				HorizontalOptions="Center"
@@ -420,9 +734,54 @@
 
 		<Color x:Key="DarkAccent1">#000000</Color>
 		<Color x:Key="DarkAccent2">#f0f0f0</Color>
+		<Color x:Key="DarkAccent3">#979797</Color>
+		<Color x:Key="LightAccent2">#dedede</Color>
 
 		<Color x:Key="GreenAccent1">#61d800</Color>
 		<Color x:Key="GreenAccent2">#defabb</Color>
+
+		<!--  Arrays  -->
+		<x:Array x:Key="UnitsPickerArray" Type="{x:Type x:String}">
+			<x:String>None</x:String>
+			<x:String>PERIMETER</x:String>
+			<x:String>mm</x:String>
+			<x:String>cm</x:String>
+			<x:String>dm</x:String>
+			<x:String>m</x:String>
+			<x:String>dam</x:String>
+			<x:String>hm</x:String>
+			<x:String>km</x:String>
+			<x:String>AREA/SURFACE AREA</x:String>
+			<x:String>mm²</x:String>
+			<x:String>cm²</x:String>
+			<x:String>dm²</x:String>
+			<x:String>m²</x:String>
+			<x:String>dam²</x:String>
+			<x:String>hm²</x:String>
+			<x:String>km²</x:String>
+			<x:String>VOLUME</x:String>
+			<x:String>mm³</x:String>
+			<x:String>cm³</x:String>
+			<x:String>dm³</x:String>
+			<x:String>m³</x:String>
+			<x:String>dam³</x:String>
+			<x:String>hm³</x:String>
+			<x:String>km³</x:String>
+		</x:Array>
+
+		<x:Array x:Key="LengthUnitConversions" Type="{x:Type x:String}">
+			<x:String>mm (millimetres)</x:String>
+			<x:String>cm (centimetres)</x:String>
+			<x:String>dm (decimetres)</x:String>
+			<x:String>m (metres)</x:String>
+			<x:String>dam (decametres)</x:String>
+			<x:String>hm (hectametres)</x:String>
+			<x:String>km (kilometres)</x:String>
+			<x:String>in (inches)</x:String>
+			<x:String>ft (feet)</x:String>
+			<x:String>yd (yards)</x:String>
+			<x:String>mi (miles)</x:String>
+		</x:Array>
 
 	</ContentPage.Resources>
 

@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 using Xamanimation;
-using XF.Material.Forms.UI;
+using System;
 
 namespace Calcyoulus
 {
@@ -10,6 +10,10 @@ namespace Calcyoulus
 		{
 			InitializeComponent();
 		}
+
+		// COLORS FROM CODE-BEHIND
+		string greenAccent1 = "#61d800";
+		string lightAccent2 = "#dedede";
 
 		// METHODS
 
@@ -153,6 +157,20 @@ namespace Calcyoulus
 			PerimeterFormulasMaterialCard.IsVisible = hideState;
 		}
 
+		private void UnitConversionsWholeReciprocal(string fromUnitItem, string toUnitItem, float unitFactor)
+		{
+			if (FromUnitConversionsPicker.SelectedItem == fromUnitItem && ToUnitConversionsPicker.SelectedItem == toUnitItem)
+			{
+				float parsedLengthValueMaterialTextField = float.Parse(LengthValueMaterialTextField.Text);
+				CalculationAnswerEntry.Text = Convert.ToString(parsedLengthValueMaterialTextField / unitFactor);
+			} 
+			else if (FromUnitConversionsPicker.SelectedItem == toUnitItem && ToUnitConversionsPicker.SelectedItem == fromUnitItem)
+			{
+				float parsedLengthValueMaterialTextField = float.Parse(LengthValueMaterialTextField.Text);
+				CalculationAnswerEntry.Text = Convert.ToString(parsedLengthValueMaterialTextField * unitFactor);
+			}
+		}
+
 		// EVENT HANDLERS
 
 		/* Bottom Page Navigation Bar Grid */
@@ -197,6 +215,23 @@ namespace Calcyoulus
 			}
 		}
 
+		private void CalculationAnswerEntry_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			// Checks to see if there is any numerical answer text
+			// in the CalculatedAnswerEntry to make it worthwhile
+			// allowing the user to copy their result.
+			if (CalculationAnswerEntry.Text != null)
+			{
+				CopyCalculatedAnswerImageButton.BackgroundColor = Color.FromHex(greenAccent1);
+				CopyCalculatedAnswerImageButton.IsEnabled = true;
+			}
+			else
+			{
+				CopyCalculatedAnswerImageButton.BackgroundColor = Color.FromHex(lightAccent2);
+				CopyCalculatedAnswerImageButton.IsEnabled = false;
+			}
+		}
+
 		/* Home Page ScrollView */
 		private void QuickFormulasMaterialCard_Clicked(object sender, System.EventArgs e)
 		{
@@ -211,6 +246,23 @@ namespace Calcyoulus
 					AnimateExpandCollapseIcon(false, ExpandCollapseQuickFormulasMaterialIcon);
 					break;
 			}
+		}
+
+		private void LengthValueMaterialTextField_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			// METRIC TO METRIC
+
+			// Millimetres to Centimetres
+			UnitConversionsWholeReciprocal("mm (millimetres)", "cm (centimetres)", 10);
+			// Millimetres to Decimetres
+			UnitConversionsWholeReciprocal("mm (millimetres)", "dm (decimetres)", 100);
+			// Millimetres to Metres
+			UnitConversionsWholeReciprocal("mm (millimetres)", "m (metres)", 1000);
+			
+			// IMPERIAL TO IMPERIAL
+			
+			// Inches to Yards
+			UnitConversionsWholeReciprocal("in (inches)", "yd (yards)", 36);
 		}
 	}
 }

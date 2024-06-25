@@ -457,11 +457,12 @@
 
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="*" />
-										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="24" />
 										<ColumnDefinition Width="*" />
 									</Grid.ColumnDefinitions>
 
 									<Picker
+										x:Name="FromUnitConversionsPicker"
 										Title="From"
 										Grid.Column="0"
 										ItemsSource="{DynamicResource LengthUnitConversions}"
@@ -470,11 +471,15 @@
 									<Image
 										Grid.Column="1"
 										HeightRequest="24"
+										HorizontalOptions="Center"
 										Source="double_right_96.png"
+										VerticalOptions="Center"
 										WidthRequest="24" />
 									<Picker
+										x:Name="ToUnitConversionsPicker"
 										Title="To"
 										Grid.Column="2"
+										HorizontalTextAlignment="End"
 										ItemsSource="{DynamicResource LengthUnitConversions}"
 										TextColor="{DynamicResource DarkAccent1}"
 										TitleColor="{DynamicResource DarkAccent3}" />
@@ -482,11 +487,13 @@
 								</Grid>
 
 								<material:MaterialTextField
+									x:Name="LengthValueMaterialTextField"
 									AlwaysShowUnderline="True"
 									BackgroundColor="White"
 									InputType="Numeric"
 									Placeholder="Value"
 									PlaceholderColor="{DynamicResource DarkAccent1}"
+									TextChanged="LengthValueMaterialTextField_TextChanged"
 									UnderlineColor="{DynamicResource GreenAccent1}" />
 
 							</StackLayout>
@@ -595,6 +602,7 @@
 					IsReadOnly="True"
 					Placeholder="Answer"
 					PlaceholderColor="{DynamicResource DarkAccent3}"
+					TextChanged="CalculationAnswerEntry_TextChanged"
 					TextColor="{DynamicResource DarkAccent1}" />
 
 				<Picker
@@ -611,6 +619,7 @@
 					TitleColor="{DynamicResource DarkAccent3}" />
 
 				<ImageButton
+					x:Name="CopyCalculatedAnswerImageButton"
 					Grid.Column="2"
 					Padding="15"
 					BackgroundColor="{DynamicResource LightAccent2}"
@@ -731,11 +740,12 @@
 
 		<!--  Colors  -->
 		<Color x:Key="LightAccent1">#FFFFFF</Color>
-
+		<Color x:Key="LightAccent2">#dedede</Color>
+		
 		<Color x:Key="DarkAccent1">#000000</Color>
 		<Color x:Key="DarkAccent2">#f0f0f0</Color>
 		<Color x:Key="DarkAccent3">#979797</Color>
-		<Color x:Key="LightAccent2">#dedede</Color>
+		
 
 		<Color x:Key="GreenAccent1">#61d800</Color>
 		<Color x:Key="GreenAccent2">#defabb</Color>

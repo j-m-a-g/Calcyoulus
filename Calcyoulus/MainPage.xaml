@@ -413,6 +413,7 @@
 					<material:MaterialCard
 						x:Name="UnitConversionsMaterialCard"
 						BackgroundColor="{DynamicResource GreenAccent2}"
+						Clicked="UnitConversionsMaterialCard_Clicked"
 						CornerRadius="10"
 						Elevation="0"
 						IsClickable="True">
@@ -442,7 +443,7 @@
 						BorderColor="{DynamicResource DarkAccent2}"
 						CornerRadius="10"
 						Elevation="0"
-						IsVisible="True">
+						IsVisible="False">
 
 						<material:MaterialCard CornerRadius="10">
 
@@ -588,7 +589,7 @@
 
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="50" />
+					<ColumnDefinition Width="60" />
 					<ColumnDefinition Width="70" />
 				</Grid.ColumnDefinitions>
 
@@ -596,8 +597,9 @@
 				<Entry
 					x:Name="CalculationAnswerEntry"
 					Grid.Column="0"
-					Margin="5,0,0,0"
+					Margin="10,0,0,0"
 					BackgroundColor="{DynamicResource LightAccent1}"
+					FontSize="22"
 					HeightRequest="55"
 					IsReadOnly="True"
 					Placeholder="Answer"
@@ -610,13 +612,26 @@
 					Title="Unit"
 					Grid.Column="1"
 					BackgroundColor="{DynamicResource LightAccent1}"
+					FontSize="22"
 					HeightRequest="55"
 					HorizontalTextAlignment="Center"
+					IsVisible="False"
 					ItemsSource="{DynamicResource UnitsPickerArray}"
 					SelectedIndex="0"
 					SelectedIndexChanged="AnswerUnitPicker_SelectedIndexChanged"
 					TextColor="{DynamicResource DarkAccent1}"
 					TitleColor="{DynamicResource DarkAccent3}" />
+
+				<ImageButton
+					x:Name="ClearCalculatedAnswerEntryImageButton"
+					Grid.Column="1"
+					Padding="15"
+					BackgroundColor="{DynamicResource LightAccent2}"
+					Clicked="ClearCalculatedAnswerEntryImageButton_Clicked"
+					CornerRadius="100"
+					HorizontalOptions="Center"
+					IsEnabled="False"
+					Source="clear_96.png" />
 
 				<ImageButton
 					x:Name="CopyCalculatedAnswerImageButton"
@@ -741,11 +756,11 @@
 		<!--  Colors  -->
 		<Color x:Key="LightAccent1">#FFFFFF</Color>
 		<Color x:Key="LightAccent2">#dedede</Color>
-		
+
 		<Color x:Key="DarkAccent1">#000000</Color>
 		<Color x:Key="DarkAccent2">#f0f0f0</Color>
 		<Color x:Key="DarkAccent3">#979797</Color>
-		
+
 
 		<Color x:Key="GreenAccent1">#61d800</Color>
 		<Color x:Key="GreenAccent2">#defabb</Color>

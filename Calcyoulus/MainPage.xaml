@@ -541,8 +541,56 @@
 
 				<StackLayout>
 
+					<!--  Allows user to select preferred system for measurement  -->
+					<material:MaterialCard
+						BorderColor="{DynamicResource LightAccent2}"
+						CornerRadius="10"
+						Elevation="0">
+
+						<Grid>
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="120" />
+							</Grid.ColumnDefinitions>
+
+							<material:MaterialLabel
+								Grid.Column="0"
+								Margin="10,0,10,0"
+								FontSize="20"
+								HorizontalOptions="Center"
+								Text="Preferred System for Units of Measure"
+								TextColor="{DynamicResource DarkAccent1}" />
+							<Picker
+								x:Name="PreferredUnitsOfMeasureSystemPicker"
+								Title="Metric"
+								Grid.Column="1"
+								ItemsSource="{DynamicResource PreferredSystemForUnitsOfMeasure}"
+								SelectedIndexChanged="PreferredUnitsOfMeasureSystemPicker_SelectedIndexChanged"
+								TextColor="{DynamicResource DarkAccent1}"
+								TitleColor="{DynamicResource DarkAccent3}" />
+
+						</Grid>
+
+					</material:MaterialCard>
+
+					<material:MaterialCard
+						Margin="0,10,0,0"
+						BackgroundColor="{DynamicResource GreenAccent1}"
+						CornerRadius="100"
+						HorizontalOptions="Center"
+						IsClickable="True"
+						WidthRequest="200">
+						<Label
+							FontSize="18"
+							HorizontalOptions="Center"
+							HorizontalTextAlignment="Center"
+							Text="Reset app preferences"
+							TextColor="{DynamicResource LightAccent1}" />
+					</material:MaterialCard>
+
 					<material:MaterialLabel
-						Margin="0,0,0,10"
+						Margin="0,10,0,10"
 						FontAttributes="Bold"
 						FontSize="30"
 						HorizontalOptions="Center"
@@ -554,6 +602,61 @@
 						HorizontalOptions="Center"
 						Text="Calcyoulus v1.26.4"
 						TextColor="{DynamicResource DarkAccent1}" />
+					<material:MaterialLabel
+						Margin="0,0,0,10"
+						FontSize="18"
+						HorizontalOptions="Center"
+						HorizontalTextAlignment="Center"
+						Text="Thanks to those who made this app possible through the following GitHub Repos!"
+						TextColor="{DynamicResource DarkAccent1}" />
+
+					<Grid>
+
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+
+						<!--  When clicked on, allows user to navigate to the corresponding GitHub Repo site for each project  -->
+						<material:MaterialCard
+							x:Name="XFMaterialLibraryCreditMaterialCard"
+							Grid.Column="0"
+							BackgroundColor="#607d8b"
+							Clicked="XFMaterialLibraryCreditMaterialCard_Clicked"
+							CornerRadius="100"
+							IsClickable="True">
+							<StackLayout Orientation="Horizontal">
+								<Image
+									HeightRequest="48"
+									Source="xf_material_logo.png"
+									WidthRequest="48" />
+								<Label
+									Text="XF.Material Library"
+									TextColor="{DynamicResource LightAccent1}"
+									VerticalOptions="Center" />
+							</StackLayout>
+						</material:MaterialCard>
+						<material:MaterialCard
+							x:Name="XamanimationCreditMaterialCard"
+							Grid.Column="1"
+							BackgroundColor="#0059d3"
+							Clicked="XamanimationCreditMaterialCard_Clicked"
+							CornerRadius="100"
+							IsClickable="True">
+							<StackLayout Orientation="Horizontal">
+								<Image
+									HeightRequest="48"
+									Source="xamanimation_icon.png"
+									WidthRequest="48" />
+								<Label
+									FontSize="13"
+									Text="Xamanimation"
+									TextColor="{DynamicResource LightAccent1}"
+									VerticalOptions="Center" />
+							</StackLayout>
+						</material:MaterialCard>
+
+					</Grid>
 
 				</StackLayout>
 
@@ -622,6 +725,21 @@
 					TextColor="{DynamicResource DarkAccent1}"
 					TitleColor="{DynamicResource DarkAccent3}" />
 
+				<Picker
+					x:Name="ImperialAnswerUnitPicker"
+					Title="Unit"
+					Grid.Column="1"
+					BackgroundColor="{DynamicResource LightAccent1}"
+					FontSize="22"
+					HeightRequest="55"
+					HorizontalTextAlignment="Center"
+					IsVisible="False"
+					ItemsSource="{DynamicResource ImperialUnitsPickerArray}"
+					SelectedIndex="0"
+					SelectedIndexChanged="AnswerUnitPicker_SelectedIndexChanged"
+					TextColor="{DynamicResource DarkAccent1}"
+					TitleColor="{DynamicResource DarkAccent3}" />
+
 				<ImageButton
 					x:Name="ClearCalculatedAnswerEntryImageButton"
 					Grid.Column="1"
@@ -638,6 +756,7 @@
 					Grid.Column="2"
 					Padding="15"
 					BackgroundColor="{DynamicResource LightAccent2}"
+					Clicked="CopyCalculatedAnswerImageButton_Clicked"
 					CornerRadius="100"
 					HorizontalOptions="Center"
 					IsEnabled="False"
@@ -794,6 +913,25 @@
 			<x:String>km³</x:String>
 		</x:Array>
 
+		<x:Array x:Key="ImperialUnitsPickerArray" Type="{x:Type x:String}">
+			<x:String>None</x:String>
+			<x:String>PERIMETER</x:String>
+			<x:String>in</x:String>
+			<x:String>ft</x:String>
+			<x:String>yd</x:String>
+			<x:String>mi</x:String>
+			<x:String>AREA/SURFACE AREA</x:String>
+			<x:String>in²</x:String>
+			<x:String>ft²</x:String>
+			<x:String>yd²</x:String>
+			<x:String>mi²</x:String>
+			<x:String>VOLUME</x:String>
+			<x:String>in³</x:String>
+			<x:String>ft³</x:String>
+			<x:String>yd³</x:String>
+			<x:String>mi³</x:String>
+		</x:Array>
+
 		<x:Array x:Key="LengthUnitConversions" Type="{x:Type x:String}">
 			<x:String>mm (millimetres)</x:String>
 			<x:String>cm (centimetres)</x:String>
@@ -806,6 +944,11 @@
 			<x:String>ft (feet)</x:String>
 			<x:String>yd (yards)</x:String>
 			<x:String>mi (miles)</x:String>
+		</x:Array>
+
+		<x:Array x:Key="PreferredSystemForUnitsOfMeasure" Type="{x:Type x:String}">
+			<x:String>Imperial</x:String>
+			<x:String>Metric</x:String>
 		</x:Array>
 
 	</ContentPage.Resources>

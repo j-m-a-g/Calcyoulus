@@ -1,6 +1,9 @@
 ﻿using Xamarin.Forms;
 using Xamanimation;
 using System;
+using Xamarin.Essentials;
+using XF.Material.Forms.UI.Dialogs;
+using System.IO.Pipes;
 
 namespace Calcyoulus
 {
@@ -9,6 +12,15 @@ namespace Calcyoulus
 		public MainPage()
 		{
 			InitializeComponent();
+
+			if (Preferences.ContainsKey("imperial_system_preferred"))
+			{
+				PreferredUnitsOfMeasureSystemPicker.SelectedItem = "Imperial";
+			}
+			else if (Preferences.ContainsKey("metric_system_preferred"))
+			{
+				PreferredUnitsOfMeasureSystemPicker.SelectedItem = "Metric";
+			}
 		}
 
 		// COLORS FROM CODE-BEHIND
@@ -163,7 +175,7 @@ namespace Calcyoulus
 			{
 				double parsedLengthValueMaterialTextField = double.Parse(LengthValueMaterialTextField.Text);
 				CalculationAnswerEntry.Text = Convert.ToString(parsedLengthValueMaterialTextField / unitFactor);
-			} 
+			}
 			else if (FromUnitConversionsPicker.SelectedItem == toUnitItem && ToUnitConversionsPicker.SelectedItem == fromUnitItem)
 			{
 				double parsedLengthValueMaterialTextField = double.Parse(LengthValueMaterialTextField.Text);
@@ -183,13 +195,23 @@ namespace Calcyoulus
 			SwitchScrollViewPages(HomePageScrollView, HomeImageButtonRectangle, "Home", HomeNavigationPageImageButton);
 			ClearCalculatedAnswerEntryImageButton.IsVisible = true;
 			AnswerUnitPicker.IsVisible = false;
+			ImperialAnswerUnitPicker.IsVisible = false;
 		}
 
 		private void GeometryCalculatorsNavigationImageButton_Clicked(object sender, System.EventArgs e)
 		{
 			SwitchScrollViewPages(GeometryCalculatorsPageScrollView, GeometryCalculatorsImageButtonRectangle, "Geometry", GeometryCalculatorsNavigationImageButton);
 			ClearCalculatedAnswerEntryImageButton.IsVisible = false;
-			AnswerUnitPicker.IsVisible = true;
+			if (Preferences.ContainsKey("imperial_system_preferred"))
+			{
+				AnswerUnitPicker.IsVisible = false;
+				ImperialAnswerUnitPicker.IsVisible = true;
+			}
+			else if (Preferences.ContainsKey("metric_system_preferred"))
+			{
+				ImperialAnswerUnitPicker.IsVisible = false;
+				AnswerUnitPicker.IsVisible = true;
+			}
 		}
 
 		private void LinearCalculatorsNavigationImageButton_Clicked(object sender, System.EventArgs e)
@@ -197,6 +219,7 @@ namespace Calcyoulus
 			SwitchScrollViewPages(LinearCalculatorsScrollView, LinearCalculatorsImageButtonRectangle, "Linear Relations", LinearCalculatorsNavigationImageButton);
 			ClearCalculatedAnswerEntryImageButton.IsVisible = true;
 			AnswerUnitPicker.IsVisible = false;
+			ImperialAnswerUnitPicker.IsVisible = false;
 		}
 
 		private void SettingsNavigationImageButton_Clicked(object sender, System.EventArgs e)
@@ -204,6 +227,7 @@ namespace Calcyoulus
 			SwitchScrollViewPages(SettingsPageScrollView, SettingsImageButtonRectangle, "Settings", SettingsNavigationImageButton);
 			ClearCalculatedAnswerEntryImageButton.IsVisible = true;
 			AnswerUnitPicker.IsVisible = false;
+			ImperialAnswerUnitPicker.IsVisible = false;
 		}
 
 		private void AnswerUnitPicker_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -255,8 +279,31 @@ namespace Calcyoulus
 			CalculationAnswerEntry.Text = null;
 		}
 
+		private void CopyCalculatedAnswerImageButton_Clicked(object sender, EventArgs e)
+		{
+			if (CalculationAnswerEntry.Text == null) 
+			{
+				MaterialDialog.Instance.SnackbarAsync("There is no answer to copy.", actionButtonText: "OK");
+			} 
+			else if (AnswerUnitPicker.IsVisible)
+			{
+				Clipboard.SetTextAsync($"{CalculationAnswerEntry.Text} {AnswerUnitPicker.SelectedItem}");
+				MaterialDialog.Instance.SnackbarAsync("Copied to the clipboard", actionButtonText: "OK");
+			}
+			else if (ImperialAnswerUnitPicker.IsVisible)
+			{
+				Clipboard.SetTextAsync($"{CalculationAnswerEntry.Text} {ImperialAnswerUnitPicker.SelectedItem}");
+				MaterialDialog.Instance.SnackbarAsync("Copied to the clipboard", actionButtonText: "OK");
+			}
+			else
+			{
+				Clipboard.SetTextAsync($"{CalculationAnswerEntry.Text}");
+				MaterialDialog.Instance.SnackbarAsync("Copied to the clipboard", actionButtonText: "OK");
+			}
+		}
+
 		/* Home Page ScrollView */
-		private void QuickFormulasMaterialCard_Clicked(object sender, System.EventArgs e)
+		private void QuickFormulasMaterialCard_Clicked(object sender, EventArgs e)
 		{
 			switch (AreaFormulasMaterialCard.IsVisible && VolumeFormulasMaterialCard.IsVisible && SurfaceAreaFormulasMaterialCard.IsVisible && PerimeterFormulasMaterialCard.IsVisible)
 			{
@@ -291,7 +338,7 @@ namespace Calcyoulus
 			if (LengthValueMaterialTextField.Text == null || LengthValueMaterialTextField.Text == "")
 			{
 				CalculationAnswerEntry.Text = null;
-			} 
+			}
 			else
 			{
 				// METRIC TO METRIC
@@ -332,10 +379,10 @@ namespace Calcyoulus
 				LengthUnitConversionsWholeReciprocal("m (metres)", "hm (hectometres)", 100);
 				// Metres to Kilometres
 				LengthUnitConversionsWholeReciprocal("m (metres)", "km (kilometres)", 1000);
-			
+
 
 				// IMPERIAL TO IMPERIAL
-				
+
 				// Inches to Feet
 				LengthUnitConversionsWholeReciprocal("in (inches)", "ft (feet)", 12);
 				// Inches to Yards
@@ -408,6 +455,52 @@ namespace Calcyoulus
 				LengthUnitConversionsWholeReciprocal("yd (yards)", "km (kilometres)", 1094);
 				// Kilometres to Miles
 				LengthUnitConversionsWholeReciprocal("km (kilometres)", "mi (miles)", 1.609);
+			}
+		}
+
+		/* Settings Page ScrollView */
+		private void XFMaterialLibraryCreditMaterialCard_Clicked(object sender, EventArgs e)
+		{
+			// Checks user's internet connection to prevent an error being thrown
+			// when trying to navigate to the specified webpage.
+			if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+			{
+				Launcher.OpenAsync("https://github.com/Baseflow/XF-Material-Library");
+			}
+			else
+			{
+				MaterialDialog.Instance.SnackbarAsync(message: "It seems that you are not connected to the internet", actionButtonText: "OK", MaterialSnackbar.DurationLong);
+			}
+		}
+
+		private void XamanimationCreditMaterialCard_Clicked(object sender, EventArgs e)
+		{
+			// Checks user's internet connection to prevent an error being thrown
+			// when trying to navigate to the specified webpage.
+			if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+			{
+				Launcher.OpenAsync("https://github.com/jsuarezruiz/Xamanimation");
+			}
+			else
+			{
+				MaterialDialog.Instance.SnackbarAsync(message: "It seems that you are not connected to the internet", actionButtonText: "OK", MaterialSnackbar.DurationLong);
+			}
+		}
+
+		private void PreferredUnitsOfMeasureSystemPicker_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			// Sets saved preference to be checked in the Geometry Calculators
+			// page to be applied to the AnswerUnitPicker
+			switch (PreferredUnitsOfMeasureSystemPicker.SelectedItem) 
+			{ 
+				case "Imperial":
+					Preferences.Remove("metric_system_preferred");
+					Preferences.Set("imperial_system_preferred", true);
+					break;
+				case "Metric":
+					Preferences.Remove("imperial_system_preferred");
+					Preferences.Set("metric_system_preferred", true);
+					break;
 			}
 		}
 	}

@@ -574,7 +574,10 @@
 
 					</material:MaterialCard>
 
+					<!--  Allows user to clear their preferences and reset the app's settings to default  -->
 					<material:MaterialCard
+						x:Name="ResetAppPreferencesMaterialCard"
+						Clicked="ResetAppPreferencesMaterialCard_Clicked"
 						Margin="0,10,0,0"
 						BackgroundColor="{DynamicResource GreenAccent1}"
 						CornerRadius="100"
@@ -588,9 +591,75 @@
 							Text="Reset app preferences"
 							TextColor="{DynamicResource LightAccent1}" />
 					</material:MaterialCard>
+					<material:MaterialCard
+						x:Name="ResetAppPreferencesWarningMaterialCard"
+						BorderColor="{DynamicResource LightAccent2}"
+						CornerRadius="10"
+						Elevation="0"
+						HorizontalOptions="Center"
+						IsVisible="False"
+						WidthRequest="250">
+						<StackLayout>
+							<Label
+								FontSize="22"
+								HorizontalOptions="Center"
+								HorizontalTextAlignment="Center"
+								Text="Are you sure?"
+								TextColor="{DynamicResource DarkAccent1}" />
+							<Label
+								Margin="0,0,0,10"
+								FontSize="16"
+								HorizontalOptions="Center"
+								HorizontalTextAlignment="Center"
+								Text="Clearing your preferences for the app will set all the settings back to their defaults."
+								TextColor="{DynamicResource DarkAccent1}" />
+
+							<Grid>
+
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+
+								<material:MaterialCard
+									x:Name="ResetAppPreferencesCancelMaterialCard"
+									Clicked="ResetAppPreferencesCancelMaterialCard_Clicked"
+									Grid.Column="0"
+									BackgroundColor="{DynamicResource GreenAccent1}"
+									BorderColor="Transparent"
+									CornerRadius="100"
+									Elevation="0"
+									IsClickable="True">
+									<Label
+										FontSize="18"
+										HorizontalOptions="Center"
+										HorizontalTextAlignment="Center"
+										Text="Cancel"
+										TextColor="{DynamicResource LightAccent1}" />
+								</material:MaterialCard>
+								<material:MaterialCard
+									x:Name="ResetAppPreferencesProceedMaterialCard"
+									Clicked="ResetAppPreferencesProceedMaterialCard_Clicked"
+									Grid.Column="1"
+									BorderColor="{DynamicResource LightAccent2}"
+									CornerRadius="100"
+									Elevation="0"
+									IsClickable="True">
+									<Label
+										FontSize="18"
+										HorizontalOptions="Center"
+										HorizontalTextAlignment="Center"
+										Text="Proceed"
+										TextColor="{DynamicResource GreenAccent1}" />
+								</material:MaterialCard>
+
+							</Grid>
+
+						</StackLayout>
+					</material:MaterialCard>
 
 					<material:MaterialLabel
-						Margin="0,10,0,10"
+						Margin="0,20,0,10"
 						FontAttributes="Bold"
 						FontSize="30"
 						HorizontalOptions="Center"
@@ -710,6 +779,7 @@
 					TextChanged="CalculationAnswerEntry_TextChanged"
 					TextColor="{DynamicResource DarkAccent1}" />
 
+				<!--  Metric Units  -->
 				<Picker
 					x:Name="AnswerUnitPicker"
 					Title="Unit"
@@ -725,6 +795,7 @@
 					TextColor="{DynamicResource DarkAccent1}"
 					TitleColor="{DynamicResource DarkAccent3}" />
 
+				<!--  Imperial Units  -->
 				<Picker
 					x:Name="ImperialAnswerUnitPicker"
 					Title="Unit"
@@ -736,7 +807,7 @@
 					IsVisible="False"
 					ItemsSource="{DynamicResource ImperialUnitsPickerArray}"
 					SelectedIndex="0"
-					SelectedIndexChanged="AnswerUnitPicker_SelectedIndexChanged"
+					SelectedIndexChanged="ImperialAnswerUnitPicker_SelectedIndexChanged"
 					TextColor="{DynamicResource DarkAccent1}"
 					TitleColor="{DynamicResource DarkAccent3}" />
 

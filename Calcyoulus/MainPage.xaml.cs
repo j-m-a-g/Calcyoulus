@@ -190,7 +190,7 @@ namespace Calcyoulus
 		// EVENT HANDLERS
 
 		/* Bottom Page Navigation Bar Grid */
-		private void HomeNavigationPageImageButton_Clicked(object sender, System.EventArgs e)
+		private void HomeNavigationPageImageButton_Clicked(object sender, EventArgs e)
 		{
 			SwitchScrollViewPages(HomePageScrollView, HomeImageButtonRectangle, "Home", HomeNavigationPageImageButton);
 			ClearCalculatedAnswerEntryImageButton.IsVisible = true;
@@ -198,7 +198,7 @@ namespace Calcyoulus
 			ImperialAnswerUnitPicker.IsVisible = false;
 		}
 
-		private void GeometryCalculatorsNavigationImageButton_Clicked(object sender, System.EventArgs e)
+		private void GeometryCalculatorsNavigationImageButton_Clicked(object sender, EventArgs e)
 		{
 			SwitchScrollViewPages(GeometryCalculatorsPageScrollView, GeometryCalculatorsImageButtonRectangle, "Geometry", GeometryCalculatorsNavigationImageButton);
 			ClearCalculatedAnswerEntryImageButton.IsVisible = false;
@@ -214,7 +214,7 @@ namespace Calcyoulus
 			}
 		}
 
-		private void LinearCalculatorsNavigationImageButton_Clicked(object sender, System.EventArgs e)
+		private void LinearCalculatorsNavigationImageButton_Clicked(object sender, EventArgs e)
 		{
 			SwitchScrollViewPages(LinearCalculatorsScrollView, LinearCalculatorsImageButtonRectangle, "Linear Relations", LinearCalculatorsNavigationImageButton);
 			ClearCalculatedAnswerEntryImageButton.IsVisible = true;
@@ -222,7 +222,7 @@ namespace Calcyoulus
 			ImperialAnswerUnitPicker.IsVisible = false;
 		}
 
-		private void SettingsNavigationImageButton_Clicked(object sender, System.EventArgs e)
+		private void SettingsNavigationImageButton_Clicked(object sender, EventArgs e)
 		{
 			SwitchScrollViewPages(SettingsPageScrollView, SettingsImageButtonRectangle, "Settings", SettingsNavigationImageButton);
 			ClearCalculatedAnswerEntryImageButton.IsVisible = true;
@@ -230,7 +230,7 @@ namespace Calcyoulus
 			ImperialAnswerUnitPicker.IsVisible = false;
 		}
 
-		private void AnswerUnitPicker_SelectedIndexChanged(object sender, System.EventArgs e)
+		private void AnswerUnitPicker_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			// Checks if a selected item from the ItemsSource
 			// is not a valid unit to be displayed.
@@ -247,6 +247,27 @@ namespace Calcyoulus
 					break;
 				case 17:
 					AnswerUnitPicker.SelectedIndex = 18;
+					break;
+			}
+		}
+
+		private void ImperialAnswerUnitPicker_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			// Checks if a selected item from the ItemsSource
+			// is not a valid unit to be displayed.
+			switch (ImperialAnswerUnitPicker.SelectedIndex)
+			{
+				case 0:
+					ImperialAnswerUnitPicker.SelectedItem = null;
+					break;
+				case 1:
+					ImperialAnswerUnitPicker.SelectedIndex = 2;
+					break;
+				case 6:
+					ImperialAnswerUnitPicker.SelectedIndex = 7;
+					break;
+				case 11:
+					ImperialAnswerUnitPicker.SelectedIndex = 12;
 					break;
 			}
 		}
@@ -502,6 +523,32 @@ namespace Calcyoulus
 					Preferences.Set("metric_system_preferred", true);
 					break;
 			}
+		}
+
+		private void ResetAppPreferencesMaterialCard_Clicked(object sender, EventArgs e)
+		{
+			ResetAppPreferencesMaterialCard.IsVisible = false;
+			ResetAppPreferencesWarningMaterialCard.IsVisible = true;
+		}
+
+		private void ResetAppPreferencesCancelMaterialCard_Clicked(object sender, EventArgs e)
+		{
+			ResetAppPreferencesWarningMaterialCard.IsVisible = false;
+			ResetAppPreferencesMaterialCard.IsVisible = true;
+		}
+
+		private void ResetAppPreferencesProceedMaterialCard_Clicked(object sender, EventArgs e)
+		{
+			ResetAppPreferencesWarningMaterialCard.IsVisible = false;
+
+			// Shows and disables the ResetAppPreferencesMaterialCard to disallow constant preference clearing
+			ResetAppPreferencesMaterialCard.IsVisible = true;
+			ResetAppPreferencesMaterialCard.IsClickable = false;
+			ResetAppPreferencesMaterialCard.BackgroundColor = Color.FromHex(lightAccent2);
+
+			PreferredUnitsOfMeasureSystemPicker.SelectedItem = null;
+			Preferences.Clear();
+			MaterialDialog.Instance.SnackbarAsync("Your preferences have been cleared.", actionButtonText: "OK");
 		}
 	}
 }

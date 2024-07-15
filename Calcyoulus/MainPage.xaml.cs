@@ -3,7 +3,6 @@ using Xamanimation;
 using System;
 using Xamarin.Essentials;
 using XF.Material.Forms.UI.Dialogs;
-using System.IO.Pipes;
 
 namespace Calcyoulus
 {
@@ -187,6 +186,24 @@ namespace Calcyoulus
 			}
 		}
 
+		private void AreaUnitConversionsWholeReciprocal(string fromUnitItem, string toUnitItem, double unitFactor)
+		{
+			if (FromAreaUnitConversionsPicker.SelectedItem == fromUnitItem && ToAreaUnitConversionsPicker.SelectedItem == toUnitItem)
+			{
+				double parsedAreaValueMaterialTextField = double.Parse(AreaValueMaterialTextField.Text);
+				CalculationAnswerEntry.Text = Convert.ToString(parsedAreaValueMaterialTextField / unitFactor);
+			}
+			else if (FromAreaUnitConversionsPicker.SelectedItem == toUnitItem && ToAreaUnitConversionsPicker.SelectedItem == fromUnitItem)
+			{
+				double parsedAreaValueMaterialTextField = double.Parse(AreaValueMaterialTextField.Text);
+				CalculationAnswerEntry.Text = Convert.ToString(parsedAreaValueMaterialTextField * unitFactor);
+			}
+			else if (FromAreaUnitConversionsPicker.SelectedItem == ToAreaUnitConversionsPicker.SelectedItem)
+			{
+				ToAreaUnitConversionsPicker.SelectedItem = null;
+			}
+		}
+
 		// EVENT HANDLERS
 
 		/* Bottom Page Navigation Bar Grid */
@@ -266,8 +283,11 @@ namespace Calcyoulus
 				case 6:
 					ImperialAnswerUnitPicker.SelectedIndex = 7;
 					break;
-				case 11:
-					ImperialAnswerUnitPicker.SelectedIndex = 12;
+				case 12:
+					ImperialAnswerUnitPicker.SelectedIndex = 13;
+					break;
+				case 17:
+					ImperialAnswerUnitPicker.SelectedIndex = 18;
 					break;
 			}
 		}
@@ -479,6 +499,42 @@ namespace Calcyoulus
 			}
 		}
 
+		private void AreaValueMaterialTextField_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			if (AreaValueMaterialTextField.Text == null || AreaValueMaterialTextField.Text == "")
+			{
+				CalculationAnswerEntry.Text = null;
+			}
+			else
+			{
+				// METRIC TO METRIC
+
+				// Square Millimetres to Square Centimetres
+				AreaUnitConversionsWholeReciprocal("mm² (square millimetres)", "cm² (square centimetres)", 100);
+				// Square Millimetres to Square Decimetres
+				AreaUnitConversionsWholeReciprocal("mm² (square millimetres)", "dm² (square decimetres)", 10000);
+				// Square Millimetres to Square Metres
+				AreaUnitConversionsWholeReciprocal("mm² (square millimetres)", "m² (square metres)", 1000000);
+				// Square Millimetres to Square Decametres
+				AreaUnitConversionsWholeReciprocal("mm² (square millimetres)", "dam² (square decametres)", 100000000);
+				// Square Millimetres to Square Hectometres
+				AreaUnitConversionsWholeReciprocal("mm² (square millimetres)", "hm² (square hecometres)", 10000000000);
+				// Square Millimetres to Square Kilometres
+				AreaUnitConversionsWholeReciprocal("mm² (square millimetres)", "km² (square kilometres)", 1000000000000);
+
+				// Square Centimetres to Square Decimetres
+				AreaUnitConversionsWholeReciprocal("cm² (square centimetres)", "dm² (square decimetres)", 100);
+				// Square Centimetres to Square Metres
+				AreaUnitConversionsWholeReciprocal("cm² (square centimetres)", "m² (square metres)", 10000);
+				// Square Centimetres to Square Decametres
+				AreaUnitConversionsWholeReciprocal("cm² (square centimetres)", "dam² (square decametres)", 1000000);
+				// Square Centimetres to Square Hectometres
+				AreaUnitConversionsWholeReciprocal("cm² (square centimetres)", "hm² (square hecometres)", 100000000);
+				// Square Centimetres to Square Kilometres
+				AreaUnitConversionsWholeReciprocal("cm² (square centimetres)", "km² (square kilometres)", 10000000000);
+			}
+		}
+
 		/* Settings Page ScrollView */
 		private void XFMaterialLibraryCreditMaterialCard_Clicked(object sender, EventArgs e)
 		{
@@ -548,7 +604,6 @@ namespace Calcyoulus
 
 			PreferredUnitsOfMeasureSystemPicker.SelectedItem = null;
 			Preferences.Clear();
-			MaterialDialog.Instance.SnackbarAsync("Your preferences have been cleared.", actionButtonText: "OK");
 		}
 	}
 }

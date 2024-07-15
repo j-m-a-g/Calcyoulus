@@ -449,9 +449,10 @@
 
 							<StackLayout>
 
+								<!--  Length Unit Conversions  -->
 								<material:MaterialLabel
 									FontAttributes="Bold"
-									Text="LENGTH"
+									Text="📏  LENGTH"
 									TextColor="{DynamicResource DarkAccent1}" />
 
 								<Grid>
@@ -495,6 +496,57 @@
 									Placeholder="Value"
 									PlaceholderColor="{DynamicResource DarkAccent1}"
 									TextChanged="LengthValueMaterialTextField_TextChanged"
+									UnderlineColor="{DynamicResource GreenAccent1}" />
+
+
+								<!--  Area Unit Conversions  -->
+								<material:MaterialLabel
+									Margin="0,20,0,0"
+									FontAttributes="Bold"
+									Text="🟦  AREA"
+									TextColor="{DynamicResource DarkAccent1}" />
+
+								<Grid>
+
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="24" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+
+									<Picker
+										x:Name="FromAreaUnitConversionsPicker"
+										Title="From"
+										Grid.Column="0"
+										ItemsSource="{DynamicResource AreaUnitConversions}"
+										TextColor="{DynamicResource DarkAccent1}"
+										TitleColor="{DynamicResource DarkAccent3}" />
+									<Image
+										Grid.Column="1"
+										HeightRequest="24"
+										HorizontalOptions="Center"
+										Source="double_right_96.png"
+										VerticalOptions="Center"
+										WidthRequest="24" />
+									<Picker
+										x:Name="ToAreaUnitConversionsPicker"
+										Title="To"
+										Grid.Column="2"
+										HorizontalTextAlignment="End"
+										ItemsSource="{DynamicResource AreaUnitConversions}"
+										TextColor="{DynamicResource DarkAccent1}"
+										TitleColor="{DynamicResource DarkAccent3}" />
+
+								</Grid>
+
+								<material:MaterialTextField
+									x:Name="AreaValueMaterialTextField"
+									AlwaysShowUnderline="True"
+									BackgroundColor="White"
+									InputType="Numeric"
+									Placeholder="Value"
+									PlaceholderColor="{DynamicResource DarkAccent1}"
+									TextChanged="AreaValueMaterialTextField_TextChanged"
 									UnderlineColor="{DynamicResource GreenAccent1}" />
 
 							</StackLayout>
@@ -577,9 +629,9 @@
 					<!--  Allows user to clear their preferences and reset the app's settings to default  -->
 					<material:MaterialCard
 						x:Name="ResetAppPreferencesMaterialCard"
-						Clicked="ResetAppPreferencesMaterialCard_Clicked"
 						Margin="0,10,0,0"
 						BackgroundColor="{DynamicResource GreenAccent1}"
+						Clicked="ResetAppPreferencesMaterialCard_Clicked"
 						CornerRadius="100"
 						HorizontalOptions="Center"
 						IsClickable="True"
@@ -623,10 +675,10 @@
 
 								<material:MaterialCard
 									x:Name="ResetAppPreferencesCancelMaterialCard"
-									Clicked="ResetAppPreferencesCancelMaterialCard_Clicked"
 									Grid.Column="0"
 									BackgroundColor="{DynamicResource GreenAccent1}"
 									BorderColor="Transparent"
+									Clicked="ResetAppPreferencesCancelMaterialCard_Clicked"
 									CornerRadius="100"
 									Elevation="0"
 									IsClickable="True">
@@ -639,9 +691,9 @@
 								</material:MaterialCard>
 								<material:MaterialCard
 									x:Name="ResetAppPreferencesProceedMaterialCard"
-									Clicked="ResetAppPreferencesProceedMaterialCard_Clicked"
 									Grid.Column="1"
 									BorderColor="{DynamicResource LightAccent2}"
+									Clicked="ResetAppPreferencesProceedMaterialCard_Clicked"
 									CornerRadius="100"
 									Elevation="0"
 									IsClickable="True">
@@ -943,7 +995,7 @@
 	<!--  LOCAL APP RESOURCES  -->
 	<ContentPage.Resources>
 
-		<!--  Colors  -->
+		<!--  COLORS  -->
 		<Color x:Key="LightAccent1">#FFFFFF</Color>
 		<Color x:Key="LightAccent2">#dedede</Color>
 
@@ -955,7 +1007,9 @@
 		<Color x:Key="GreenAccent1">#61d800</Color>
 		<Color x:Key="GreenAccent2">#defabb</Color>
 
-		<!--  Arrays  -->
+		<!--  ARRAYS  -->
+
+		<!--  ItemsSource for Answer Unit Pickers  -->
 		<x:Array x:Key="UnitsPickerArray" Type="{x:Type x:String}">
 			<x:String>None</x:String>
 			<x:String>PERIMETER</x:String>
@@ -996,25 +1050,47 @@
 			<x:String>ft²</x:String>
 			<x:String>yd²</x:String>
 			<x:String>mi²</x:String>
+			<x:String>ac</x:String>
 			<x:String>VOLUME</x:String>
+			<x:String>fl oz</x:String>
+			<x:String>pt</x:String>
+			<x:String>qt</x:String>
+			<x:String>gal</x:String>
+			<x:String>VOLUME (Unconventional)</x:String>
 			<x:String>in³</x:String>
 			<x:String>ft³</x:String>
 			<x:String>yd³</x:String>
 			<x:String>mi³</x:String>
 		</x:Array>
 
+		<!--  ItemsSource for Unit Conversions Pickers  -->
 		<x:Array x:Key="LengthUnitConversions" Type="{x:Type x:String}">
 			<x:String>mm (millimetres)</x:String>
 			<x:String>cm (centimetres)</x:String>
 			<x:String>dm (decimetres)</x:String>
 			<x:String>m (metres)</x:String>
 			<x:String>dam (decametres)</x:String>
-			<x:String>hm (hectametres)</x:String>
+			<x:String>hm (hectometres)</x:String>
 			<x:String>km (kilometres)</x:String>
 			<x:String>in (inches)</x:String>
 			<x:String>ft (feet)</x:String>
 			<x:String>yd (yards)</x:String>
 			<x:String>mi (miles)</x:String>
+		</x:Array>
+
+		<x:Array x:Key="AreaUnitConversions" Type="{x:Type x:String}">
+			<x:String>mm² (square millimetres)</x:String>
+			<x:String>cm² (square centimetres)</x:String>
+			<x:String>dm² (square decimetres)</x:String>
+			<x:String>m² (square metres)</x:String>
+			<x:String>dam² (square decametres)</x:String>
+			<x:String>hm² (square hectometres)</x:String>
+			<x:String>km² (square kilometres)</x:String>
+			<x:String>in² (square inches)</x:String>
+			<x:String>ft² (square feet)</x:String>
+			<x:String>yd² (square yards)</x:String>
+			<x:String>mi² (square miles)</x:String>
+			<x:String>ac (acres)</x:String>
 		</x:Array>
 
 		<x:Array x:Key="PreferredSystemForUnitsOfMeasure" Type="{x:Type x:String}">

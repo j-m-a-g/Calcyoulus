@@ -670,7 +670,7 @@
 								<RowDefinition Height="*" />
 							</Grid.RowDefinitions>
 
-							<Label
+							<material:MaterialLabel
 								Grid.ColumnSpan="2"
 								FontSize="16"
 								Text="Include a specific time for each date"
@@ -678,8 +678,8 @@
 								VerticalOptions="Center" />
 							<material:MaterialSwitch
 								x:Name="IncludeSpecificTimeForDateMaterialSwitch"
-								Activated="IncludeSpecificTimeForDateMaterialSwitch_Activated"
 								Grid.Column="1"
+								Activated="IncludeSpecificTimeForDateMaterialSwitch_Activated"
 								ActiveThumbColor="{DynamicResource GreenAccent1}"
 								ActiveTrackColor="{DynamicResource GreenAccent2}"
 								HorizontalOptions="End" />
@@ -726,16 +726,16 @@
 
 							<material:MaterialCard
 								x:Name="FindDateDifferenceMaterialCard"
-								Clicked="FindDateDifferenceMaterialCard_Clicked"
 								Grid.Row="4"
 								Grid.Column="0"
 								Grid.ColumnSpan="2"
 								Margin="0,10,0,0"
 								BackgroundColor="{DynamicResource GreenAccent1}"
+								Clicked="FindDateDifferenceMaterialCard_Clicked"
 								CornerRadius="100"
 								Elevation="0"
 								IsClickable="True">
-								<Label
+								<material:MaterialLabel
 									FontSize="18"
 									HorizontalOptions="Center"
 									HorizontalTextAlignment="Center"
@@ -794,7 +794,7 @@
 						<Grid>
 
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
 								<ColumnDefinition Width="120" />
 							</Grid.ColumnDefinitions>
 
@@ -803,7 +803,8 @@
 								Margin="10,0,10,0"
 								FontSize="20"
 								HorizontalOptions="Center"
-								Text="Preferred System for Units of Measure"
+								LineHeight="1.15"
+								Text="Preferred system for units of measure"
 								TextColor="{DynamicResource DarkAccent1}" />
 							<Picker
 								x:Name="PreferredUnitsOfMeasureSystemPicker"
@@ -818,7 +819,47 @@
 
 					</material:MaterialCard>
 
-					<!--  Allows user to clear their preferences and reset the app's settings to default  -->
+					<!--
+						Allows user to keep the Clear button when on the
+						Geometry page there instead of the default AnswerUnitEntry
+					-->
+					<material:MaterialCard
+						BorderColor="{DynamicResource LightAccent2}"
+						CornerRadius="10"
+						Elevation="0">
+
+						<Grid>
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+
+							<material:MaterialLabel
+								Grid.Column="0"
+								Margin="10,0,10,0"
+								FontSize="20"
+								LineHeight="1.15"
+								Text="Always show the &apos;clear&apos; button on the Geometry page"
+								TextColor="{DynamicResource DarkAccent1}"
+								VerticalOptions="Center" />
+							<material:MaterialSwitch
+								x:Name="AlwaysShowClearButtonMaterialSwitch"
+								Grid.Column="1"
+								Margin="0,0,10,0"
+								Activated="AlwaysShowClearButtonMaterialSwitch_Activated"
+								ActiveThumbColor="{DynamicResource GreenAccent1}"
+								ActiveTrackColor="{DynamicResource GreenAccent2}"
+								VerticalOptions="Center" />
+
+						</Grid>
+
+					</material:MaterialCard>
+
+					<!--
+						Allows user to clear their preferences and reset the app's
+						settings to default
+					-->
 					<material:MaterialCard
 						x:Name="ResetAppPreferencesMaterialCard"
 						Margin="0,10,0,0"
@@ -828,7 +869,7 @@
 						HorizontalOptions="Center"
 						IsClickable="True"
 						WidthRequest="200">
-						<Label
+						<material:MaterialLabel
 							FontSize="18"
 							HorizontalOptions="Center"
 							HorizontalTextAlignment="Center"
@@ -844,13 +885,13 @@
 						IsVisible="False"
 						WidthRequest="250">
 						<StackLayout>
-							<Label
+							<material:MaterialLabel
 								FontSize="22"
 								HorizontalOptions="Center"
 								HorizontalTextAlignment="Center"
 								Text="Are you sure?"
 								TextColor="{DynamicResource DarkAccent1}" />
-							<Label
+							<material:MaterialLabel
 								Margin="0,0,0,10"
 								FontSize="16"
 								HorizontalOptions="Center"
@@ -874,7 +915,7 @@
 									CornerRadius="100"
 									Elevation="0"
 									IsClickable="True">
-									<Label
+									<material:MaterialLabel
 										FontSize="18"
 										HorizontalOptions="Center"
 										HorizontalTextAlignment="Center"
@@ -889,7 +930,7 @@
 									CornerRadius="100"
 									Elevation="0"
 									IsClickable="True">
-									<Label
+									<material:MaterialLabel
 										FontSize="18"
 										HorizontalOptions="Center"
 										HorizontalTextAlignment="Center"
@@ -902,6 +943,63 @@
 						</StackLayout>
 					</material:MaterialCard>
 
+					<!--  Help Information  -->
+					<material:MaterialLabel
+						Margin="0,20,0,10"
+						FontAttributes="Bold"
+						FontSize="30"
+						HorizontalOptions="Center"
+						Text="Help"
+						TextColor="{DynamicResource DarkAccent1}" />
+					<Grid Margin="10,0,10,0">
+
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+
+						<!--  "Table" Headers  -->
+						<material:MaterialLabel
+							Grid.Row="0"
+							Grid.Column="0"
+							FontAttributes="Bold"
+							FontSize="20"
+							HorizontalOptions="Center"
+							HorizontalTextAlignment="Center"
+							Text="Problem"
+							TextColor="{DynamicResource DarkAccent1}" />
+						<material:MaterialLabel
+							Grid.Row="0"
+							Grid.Column="1"
+							FontAttributes="Bold"
+							FontSize="20"
+							HorizontalOptions="Center"
+							HorizontalTextAlignment="Center"
+							Text="Solution"
+							TextColor="{DynamicResource DarkAccent1}" />
+
+						<!--  Problem 1  -->
+						<material:MaterialLabel
+							Grid.Row="1"
+							Grid.Column="0"
+							FontSize="18"
+							Text="Answer does not show up when trying to convert units on the Home page." />
+						<material:MaterialLabel
+							Grid.Row="1"
+							Grid.Column="1"
+							FontSize="18"
+							HorizontalOptions="End"
+							HorizontalTextAlignment="End"
+							Text="Restart the app." />
+
+					</Grid>
+
+					<!--  About App Information  -->
 					<material:MaterialLabel
 						Margin="0,20,0,10"
 						FontAttributes="Bold"
@@ -930,7 +1028,10 @@
 							<ColumnDefinition Width="*" />
 						</Grid.ColumnDefinitions>
 
-						<!--  When clicked on, allows user to navigate to the corresponding GitHub Repo site for each project  -->
+						<!--
+							When clicked on, allows user to navigate to the corresponding
+							GitHub Repo site for each project
+						-->
 						<material:MaterialCard
 							x:Name="XFMaterialLibraryCreditMaterialCard"
 							Grid.Column="0"
@@ -943,7 +1044,7 @@
 									HeightRequest="48"
 									Source="xf_material_logo.png"
 									WidthRequest="48" />
-								<Label
+								<material:MaterialLabel
 									Text="XF.Material Library"
 									TextColor="{DynamicResource LightAccent1}"
 									VerticalOptions="Center" />
@@ -961,7 +1062,7 @@
 									HeightRequest="48"
 									Source="xamanimation_icon.png"
 									WidthRequest="48" />
-								<Label
+								<material:MaterialLabel
 									FontSize="13"
 									Text="Xamanimation"
 									TextColor="{DynamicResource LightAccent1}"

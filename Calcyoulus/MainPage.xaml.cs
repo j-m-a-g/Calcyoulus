@@ -1,7 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using System;
 using Xamanimation;
-using System;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
 
 namespace Calcyoulus
@@ -19,6 +19,11 @@ namespace Calcyoulus
 			else if (Preferences.ContainsKey("metric_system_preferred"))
 			{
 				PreferredUnitsOfMeasureSystemPicker.SelectedItem = "Metric";
+			}
+
+			if (Preferences.ContainsKey("always_show_clear_button"))
+			{
+				AlwaysShowClearButtonMaterialSwitch.IsActivated = true;
 			}
 		}
 
@@ -218,16 +223,24 @@ namespace Calcyoulus
 		private void GeometryCalculatorsNavigationImageButton_Clicked(object sender, EventArgs e)
 		{
 			SwitchScrollViewPages(GeometryCalculatorsPageScrollView, GeometryCalculatorsImageButtonRectangle, "Geometry", GeometryCalculatorsNavigationImageButton);
-			ClearCalculatedAnswerEntryImageButton.IsVisible = false;
-			if (Preferences.ContainsKey("imperial_system_preferred"))
+
+			if (Preferences.ContainsKey("always_show_clear_button"))
 			{
-				AnswerUnitPicker.IsVisible = false;
-				ImperialAnswerUnitPicker.IsVisible = true;
+				ClearCalculatedAnswerEntryImageButton.IsVisible = false;
+				if (Preferences.ContainsKey("imperial_system_preferred"))
+				{
+					AnswerUnitPicker.IsVisible = false;
+					ImperialAnswerUnitPicker.IsVisible = true;
+				}
+				else if (Preferences.ContainsKey("metric_system_preferred"))
+				{
+					ImperialAnswerUnitPicker.IsVisible = false;
+					AnswerUnitPicker.IsVisible = true;
+				}
 			}
-			else if (Preferences.ContainsKey("metric_system_preferred"))
+			else
 			{
-				ImperialAnswerUnitPicker.IsVisible = false;
-				AnswerUnitPicker.IsVisible = true;
+				ClearCalculatedAnswerEntryImageButton.IsVisible = true;
 			}
 		}
 
@@ -322,10 +335,10 @@ namespace Calcyoulus
 
 		private void CopyCalculatedAnswerImageButton_Clicked(object sender, EventArgs e)
 		{
-			if (CalculationAnswerEntry.Text == null) 
+			if (CalculationAnswerEntry.Text == null)
 			{
 				MaterialDialog.Instance.SnackbarAsync("There is no answer to copy.", actionButtonText: "OK");
-			} 
+			}
 			else if (AnswerUnitPicker.IsVisible)
 			{
 				Clipboard.SetTextAsync($"{CalculationAnswerEntry.Text} {AnswerUnitPicker.SelectedItem}");
@@ -391,7 +404,7 @@ namespace Calcyoulus
 
 		private void IncludeSpecificTimeForDateMaterialSwitch_Activated(object sender, XF.Material.Forms.UI.ActivatedEventArgs e)
 		{
-			switch(IncludeSpecificTimeForDateMaterialSwitch.IsActivated)
+			switch (IncludeSpecificTimeForDateMaterialSwitch.IsActivated)
 			{
 				case true:
 					FirstDatePairMaterialTimePicker.IsEnabled = true;
@@ -517,7 +530,7 @@ namespace Calcyoulus
 				LengthUnitConversionsWholeReciprocal("mm (millimetres)", "yd (yards)", 914.4);
 				// Millimetres to Miles
 				LengthUnitConversionsWholeReciprocal("mm (millimetres)", "mi (miles)", 1609000);
-				
+
 				// Centimetres to Inches
 				LengthUnitConversionsWholeReciprocal("cm (centimetres)", "in (inches)", 2.54);
 				// Centimetres to Feet
@@ -526,7 +539,7 @@ namespace Calcyoulus
 				LengthUnitConversionsWholeReciprocal("cm (centimetres)", "yd (yards)", 91.44);
 				// Centimetres to Miles
 				LengthUnitConversionsWholeReciprocal("cm (centimetres)", "mi (miles)", 160900);
-				
+
 				// Decimetres to Inches
 				LengthUnitConversionsWholeReciprocal("in (inches)", "dm (decimetres)", 3.937);
 				// Decimetres to Feet
@@ -535,7 +548,7 @@ namespace Calcyoulus
 				LengthUnitConversionsWholeReciprocal("dm (decimetres)", "yd (yards)", 9.144);
 				// Decimetres to Miles
 				LengthUnitConversionsWholeReciprocal("dm (decimetres)", "mi (miles)", 16090);
-				
+
 				// Metres to Inches
 				LengthUnitConversionsWholeReciprocal("in (inches)", "m (metres)", 39.37);
 				// Metres to Feet
@@ -544,7 +557,7 @@ namespace Calcyoulus
 				LengthUnitConversionsWholeReciprocal("yd (yards)", "m (metres)", 1.094);
 				// Metres to Miles
 				LengthUnitConversionsWholeReciprocal("m (metres)", "mi (miles)", 1609);
-				
+
 				// Decametres to Inches
 				LengthUnitConversionsWholeReciprocal("in (inches)", "dam (decametres)", 393.7);
 				// Decametres to Feet
@@ -553,7 +566,7 @@ namespace Calcyoulus
 				LengthUnitConversionsWholeReciprocal("yd (yards)", "dam (decametres)", 10.936);
 				// Decametres to Miles
 				LengthUnitConversionsWholeReciprocal("dam (decametres)", "mi (miles)", 160.9);
-				
+
 				// Hectometres to Inches
 				LengthUnitConversionsWholeReciprocal("in (inches)", "hm (hectometres)", 3937);
 				// Hectometres to Feet
@@ -562,7 +575,7 @@ namespace Calcyoulus
 				LengthUnitConversionsWholeReciprocal("yd (yards)", "hm (hectometres)", 109.4);
 				// Hectometres to Miles
 				LengthUnitConversionsWholeReciprocal("hm (hectometres)", "mi (miles)", 16.093);
-				
+
 				// Kilometres to Inches
 				LengthUnitConversionsWholeReciprocal("in (inches)", "km (kilometres)", 39370);
 				// Kilometres to Feet
@@ -800,8 +813,8 @@ namespace Calcyoulus
 		{
 			// Sets saved preference to be checked in the Geometry Calculators
 			// page to be applied to the AnswerUnitPicker
-			switch (PreferredUnitsOfMeasureSystemPicker.SelectedItem) 
-			{ 
+			switch (PreferredUnitsOfMeasureSystemPicker.SelectedItem)
+			{
 				case "Imperial":
 					Preferences.Remove("metric_system_preferred");
 					Preferences.Set("imperial_system_preferred", true);
@@ -823,6 +836,19 @@ namespace Calcyoulus
 		{
 			ResetAppPreferencesWarningMaterialCard.IsVisible = false;
 			ResetAppPreferencesMaterialCard.IsVisible = true;
+		}
+
+		private void AlwaysShowClearButtonMaterialSwitch_Activated(object sender, XF.Material.Forms.UI.ActivatedEventArgs e)
+		{
+			switch (AlwaysShowClearButtonMaterialSwitch.IsActivated)
+			{
+				case true:
+					Preferences.Remove("always_show_clear_button");
+					break;
+				case false:
+					Preferences.Set("always_show_clear_button", true);
+					break;
+			}
 		}
 
 		private void ResetAppPreferencesProceedMaterialCard_Clicked(object sender, EventArgs e)

@@ -2,6 +2,7 @@
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
+using AndroidX.AppCompat.App;
 
 namespace Calcyoulus.Droid
 {
@@ -10,7 +11,10 @@ namespace Calcyoulus.Droid
     {
         protected override void OnCreate(Bundle? savedInstanceState)
         {
-            // XF.Material Library
+			// Force app to appear in light theme
+			AppCompatDelegate.DefaultNightMode = AppCompatDelegate.ModeNightNo;
+
+			// XF.Material Library
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar;
 

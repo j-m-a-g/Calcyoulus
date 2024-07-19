@@ -374,6 +374,75 @@ namespace Calcyoulus
 			}
 		}
 
+		private void DateDifferenceMaterialCard_Clicked(object sender, EventArgs e)
+		{
+			switch (DateDifferenceExpandedMaterialCard.IsVisible)
+			{
+				case true:
+					DateDifferenceExpandedMaterialCard.IsVisible = false;
+					AnimateExpandCollapseIcon(true, ExpandCollapseDateDifferenceMaterialIcon);
+					break;
+				case false:
+					DateDifferenceExpandedMaterialCard.IsVisible = true;
+					AnimateExpandCollapseIcon(false, ExpandCollapseDateDifferenceMaterialIcon);
+					break;
+			}
+		}
+
+		private void IncludeSpecificTimeForDateMaterialSwitch_Activated(object sender, XF.Material.Forms.UI.ActivatedEventArgs e)
+		{
+			switch(IncludeSpecificTimeForDateMaterialSwitch.IsActivated)
+			{
+				case true:
+					FirstDatePairMaterialTimePicker.IsEnabled = true;
+					SecondDatePairMaterialTimePicker.IsEnabled = true;
+					break;
+				case false:
+					FirstDatePairMaterialTimePicker.IsEnabled = false;
+					SecondDatePairMaterialTimePicker.IsEnabled = false;
+					break;
+			}
+		}
+
+		private void FindDateDifferenceMaterialCard_Clicked(object sender, EventArgs e)
+		{
+			// Specifies characters to trim when only date values are inputted
+			char[] dateOnlyTrim = { ':', '0' };
+
+			switch (FirstDatePairMaterialTimePicker.IsEnabled && SecondDatePairMaterialTimePicker.IsEnabled)
+			{
+				case true:
+					// Defined variables that represent each pair of DatePickers and TimePickers
+					DateTime firstDateTimePairSum = FirstMaterialDatePicker.Date + FirstDatePairMaterialTimePicker.Time;
+					DateTime secondDateTimePairSum = SecondMaterialDatePicker.Date + SecondDatePairMaterialTimePicker.Time;
+
+					if (firstDateTimePairSum > secondDateTimePairSum)
+					{
+						TimeSpan firstGreaterDifference = firstDateTimePairSum - secondDateTimePairSum;
+						CalculationAnswerEntry.Text = $"{firstGreaterDifference.ToString()} days:hours:minutes:seconds";
+					}
+					else if (firstDateTimePairSum < secondDateTimePairSum)
+					{
+						TimeSpan secondGreaterDifference = secondDateTimePairSum - firstDateTimePairSum;
+						CalculationAnswerEntry.Text = $"{secondGreaterDifference.ToString()} days:hours:minutes:seconds";
+
+					}
+					break;
+				case false:
+					if (FirstMaterialDatePicker.Date > SecondMaterialDatePicker.Date)
+					{
+						TimeSpan firstDatePickerGreaterDifference = FirstMaterialDatePicker.Date - SecondMaterialDatePicker.Date;
+						CalculationAnswerEntry.Text = $"{firstDatePickerGreaterDifference.ToString().Trim(dateOnlyTrim)} days";
+					}
+					else if (FirstMaterialDatePicker.Date < SecondMaterialDatePicker.Date)
+					{
+						TimeSpan secondDatePickerGreaterDifference = SecondMaterialDatePicker.Date - FirstMaterialDatePicker.Date;
+						CalculationAnswerEntry.Text = $"{secondDatePickerGreaterDifference.ToString().Trim(dateOnlyTrim)} days";
+					}
+					break;
+			}
+		}
+
 		private void LengthValueMaterialTextField_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			if (LengthValueMaterialTextField.Text == null || LengthValueMaterialTextField.Text == "")
@@ -448,6 +517,7 @@ namespace Calcyoulus
 				LengthUnitConversionsWholeReciprocal("mm (millimetres)", "yd (yards)", 914.4);
 				// Millimetres to Miles
 				LengthUnitConversionsWholeReciprocal("mm (millimetres)", "mi (miles)", 1609000);
+				
 				// Centimetres to Inches
 				LengthUnitConversionsWholeReciprocal("cm (centimetres)", "in (inches)", 2.54);
 				// Centimetres to Feet
@@ -456,6 +526,7 @@ namespace Calcyoulus
 				LengthUnitConversionsWholeReciprocal("cm (centimetres)", "yd (yards)", 91.44);
 				// Centimetres to Miles
 				LengthUnitConversionsWholeReciprocal("cm (centimetres)", "mi (miles)", 160900);
+				
 				// Decimetres to Inches
 				LengthUnitConversionsWholeReciprocal("in (inches)", "dm (decimetres)", 3.937);
 				// Decimetres to Feet
@@ -464,6 +535,7 @@ namespace Calcyoulus
 				LengthUnitConversionsWholeReciprocal("dm (decimetres)", "yd (yards)", 9.144);
 				// Decimetres to Miles
 				LengthUnitConversionsWholeReciprocal("dm (decimetres)", "mi (miles)", 16090);
+				
 				// Metres to Inches
 				LengthUnitConversionsWholeReciprocal("in (inches)", "m (metres)", 39.37);
 				// Metres to Feet
@@ -472,6 +544,7 @@ namespace Calcyoulus
 				LengthUnitConversionsWholeReciprocal("yd (yards)", "m (metres)", 1.094);
 				// Metres to Miles
 				LengthUnitConversionsWholeReciprocal("m (metres)", "mi (miles)", 1609);
+				
 				// Decametres to Inches
 				LengthUnitConversionsWholeReciprocal("in (inches)", "dam (decametres)", 393.7);
 				// Decametres to Feet
@@ -480,6 +553,7 @@ namespace Calcyoulus
 				LengthUnitConversionsWholeReciprocal("yd (yards)", "dam (decametres)", 10.936);
 				// Decametres to Miles
 				LengthUnitConversionsWholeReciprocal("dam (decametres)", "mi (miles)", 160.9);
+				
 				// Hectometres to Inches
 				LengthUnitConversionsWholeReciprocal("in (inches)", "hm (hectometres)", 3937);
 				// Hectometres to Feet
@@ -488,6 +562,7 @@ namespace Calcyoulus
 				LengthUnitConversionsWholeReciprocal("yd (yards)", "hm (hectometres)", 109.4);
 				// Hectometres to Miles
 				LengthUnitConversionsWholeReciprocal("hm (hectometres)", "mi (miles)", 16.093);
+				
 				// Kilometres to Inches
 				LengthUnitConversionsWholeReciprocal("in (inches)", "km (kilometres)", 39370);
 				// Kilometres to Feet
@@ -521,6 +596,8 @@ namespace Calcyoulus
 				AreaUnitConversionsWholeReciprocal("mm² (square millimetres)", "hm² (square hecometres)", 10000000000);
 				// Square Millimetres to Square Kilometres
 				AreaUnitConversionsWholeReciprocal("mm² (square millimetres)", "km² (square kilometres)", 1000000000000);
+				// Square Millimetres to Hectares
+				AreaUnitConversionsWholeReciprocal("mm² (square millimetres)", "ha (hectares)", 10000000000);
 
 				// Square Centimetres to Square Decimetres
 				AreaUnitConversionsWholeReciprocal("cm² (square centimetres)", "dm² (square decimetres)", 100);
@@ -532,6 +609,161 @@ namespace Calcyoulus
 				AreaUnitConversionsWholeReciprocal("cm² (square centimetres)", "hm² (square hecometres)", 100000000);
 				// Square Centimetres to Square Kilometres
 				AreaUnitConversionsWholeReciprocal("cm² (square centimetres)", "km² (square kilometres)", 10000000000);
+				// Square Centimetres to Hectares
+				AreaUnitConversionsWholeReciprocal("cm² (square centimetres)", "ha (hectares)", 100000000);
+
+				// Square Decimetres to Square Metres
+				AreaUnitConversionsWholeReciprocal("dm² (square decimetres)", "m² (square metres)", 100);
+				// Square Decimetres to Square Decametres
+				AreaUnitConversionsWholeReciprocal("dm² (square decimetres)", "dam² (square decametres)", 10000);
+				// Square Decimetres to Square Hectometres
+				AreaUnitConversionsWholeReciprocal("dm² (square decimetres)", "hm² (square hectometres)", 1000000);
+				// Square Decimetres to Square Kilometres
+				AreaUnitConversionsWholeReciprocal("dm² (square decimetres)", "km² (square kilometres)", 100000000);
+				// Square Decimetres to Hectares
+				AreaUnitConversionsWholeReciprocal("dm² (square decimetres)", "ha (hectares)", 1000000);
+
+				// Square Metres to Square Decametres
+				AreaUnitConversionsWholeReciprocal("m² (square metres)", "dam² (square decametres)", 100);
+				// Square Metres to Square Hectometres
+				AreaUnitConversionsWholeReciprocal("m² (square metres)", "hm² (square hectometres)", 10000);
+				// Square Metres to Square Kilometres
+				AreaUnitConversionsWholeReciprocal("m² (square metres)", "km² (square kilometres)", 1000000);
+				// Square Metres to Hectares
+				AreaUnitConversionsWholeReciprocal("m² (square metres)", "ha (hectares)", 10000);
+
+				// Square Decametres to Square Hectometres
+				AreaUnitConversionsWholeReciprocal("dam² (square decametres)", "hm² (square hectometres)", 100);
+				// Square Decametres to Square Kilometres
+				AreaUnitConversionsWholeReciprocal("dam² (square decametres)", "km² (square kilometres)", 10000);
+				// Square Decametres to Hectares
+				AreaUnitConversionsWholeReciprocal("dam² (square decametres)", "ha (hectares)", 100);
+
+				// Square Hectometres to Square Kilometres
+				AreaUnitConversionsWholeReciprocal("hm² (square hectometres)", "km² (square kilometres)", 100);
+				// Square Hectometres to Hectares
+				AreaUnitConversionsWholeReciprocal("hm² (square hectometres)", "ha (hectares)", 1);
+
+				// Square Kilometres to Hectares
+				AreaUnitConversionsWholeReciprocal("ha (hectares)", "km² (square kilometres)", 100);
+
+
+				// IMPERIAL TO IMPERIAL
+
+				// Square Inches to Square Feet
+				AreaUnitConversionsWholeReciprocal("in² (square inches)", "ft² (square feet)", 144);
+				// Square Inches to Square Yards
+				AreaUnitConversionsWholeReciprocal("in² (square inches)", "yd² (square yards)", 1296);
+				// Square Inches to Square Miles
+				AreaUnitConversionsWholeReciprocal("in² (square inches)", "mi² (square miles)", 4014000000);
+				// Square Inches to Acres
+				AreaUnitConversionsWholeReciprocal("in² (square inches)", "ac (acres)", 6273000);
+
+				// Square Feet to Square Yards
+				AreaUnitConversionsWholeReciprocal("ft² (square feet)", "yd² (square yards)", 9);
+				// Square Feet to Square Miles
+				AreaUnitConversionsWholeReciprocal("ft² (square feet)", "mi² (square miles)", 27880000);
+				// Square Feet to Acres
+				AreaUnitConversionsWholeReciprocal("ft² (square feet)", "ac (acres)", 43560);
+
+				// Square Yards to Square Miles
+				AreaUnitConversionsWholeReciprocal("yd² (square yards)", "mi² (square miles)", 3098000);
+				// Square Yards to Acres
+				AreaUnitConversionsWholeReciprocal("yd² (square yards)", "ac (acres)", 4840);
+
+				// Square Miles to Acres
+				AreaUnitConversionsWholeReciprocal("ac (acres)", "mi² (square miles)", 640);
+
+
+				// METRIC TO IMPERIAL (IMPERIAL TO METRIC)
+
+				// Square Millimetres to Square Inches
+				AreaUnitConversionsWholeReciprocal("mm² (square millimetres)", "in² (square inches)", 645.2);
+				// Square Millimetres to Square Feet
+				AreaUnitConversionsWholeReciprocal("mm² (square millimetres)", "ft² (square feet)", 92900);
+				// Square Millimetres to Square Yards
+				AreaUnitConversionsWholeReciprocal("mm² (square millimetres)", "yd² (square yards)", 836100);
+				// Square Millimetres to Square Miles
+				AreaUnitConversionsWholeReciprocal("mm² (square millimetres)", "mi² (square miles)", 2590000000000);
+				// Square Millimetres to Acres
+				AreaUnitConversionsWholeReciprocal("mm² (square millimetres)", "ac (acres)", 4047000000);
+
+				// Square Centimetres to Square Inches
+				AreaUnitConversionsWholeReciprocal("cm² (square centimetres)", "in² (square inches)", 6.452);
+				// Square Centimetres to Square Feet
+				AreaUnitConversionsWholeReciprocal("cm² (square centimetres)", "ft² (square feet)", 929);
+				// Square Centimetres to Square Yards
+				AreaUnitConversionsWholeReciprocal("cm² (square centimetres)", "yd² (square yards)", 8361);
+				// Square Centimetres to Square Miles
+				AreaUnitConversionsWholeReciprocal("cm² (square centimetres)", "mi² (square miles)", 25900000000);
+				// Square Centimetres to Acres
+				AreaUnitConversionsWholeReciprocal("cm² (square centimetres)", "ac (acres)", 40470000);
+
+				// Square Decimetres to Square Inches
+				AreaUnitConversionsWholeReciprocal("in² (square inches)", "dm² (square decimetres)", 15.5);
+				// Square Decimetres to Square Feet
+				AreaUnitConversionsWholeReciprocal("dm² (square decimetres)", "ft² (square feet)", 9.29);
+				// Square Decimetres to Square Yards
+				AreaUnitConversionsWholeReciprocal("dm² (square decimetres)", "yd² (square yards)", 83.613);
+				// Square Decimetres to Square Miles
+				AreaUnitConversionsWholeReciprocal("dm² (square decimetres)", "mi² (square miles)", 259000000);
+				// Square Decimetres to Acres
+				AreaUnitConversionsWholeReciprocal("dm² (square decimetres)", "ac (acres)", 404700);
+
+				// Square Metres to Square Inches
+				AreaUnitConversionsWholeReciprocal("in² (square inches)", "m² (square metres)", 1550);
+				// Square Metres to Square Feet
+				AreaUnitConversionsWholeReciprocal("ft² (square feet)", "m² (square metres)", 10.764);
+				// Square Metres to Square Yards
+				AreaUnitConversionsWholeReciprocal("yd² (square yards)", "m² (square metres)", 1.196);
+				// Square Metres to Square Miles
+				AreaUnitConversionsWholeReciprocal("m² (square metres)", "mi² (square miles)", 2590000);
+				// Square Metres to Acres
+				AreaUnitConversionsWholeReciprocal("m² (square metres)", "ac (acres)", 4047);
+
+				// Square Decametres to Square Inches
+				AreaUnitConversionsWholeReciprocal("in² (square inches)", "dam² (square decametres)", 155000);
+				// Square Decametres to Square Feet
+				AreaUnitConversionsWholeReciprocal("ft² (square feet)", "dam² (square decametres)", 1076);
+				// Square Decametres to Square Yards
+				AreaUnitConversionsWholeReciprocal("yd² (square yards)", "dam² (square decametres)", 119.6);
+				// Square Decametres to Square Miles
+				AreaUnitConversionsWholeReciprocal("dam² (square decametres)", "mi² (square miles)", 25900);
+				// Square Decametres to Acres
+				AreaUnitConversionsWholeReciprocal("dam² (square decametres)", "ac (acres)", 40.469);
+
+				// Square Hectometres to Square Inches
+				AreaUnitConversionsWholeReciprocal("in² (square inches)", "hm² (square hectometres)", 15500000);
+				// Square Hectometres to Square Feet
+				AreaUnitConversionsWholeReciprocal("ft² (square feet)", "hm² (square hectometres)", 107600);
+				// Square Hectometres to Square Yards
+				AreaUnitConversionsWholeReciprocal("yd² (square yards)", "hm² (square hectometres)", 11960);
+				// Square Hectometres to Square Miles
+				AreaUnitConversionsWholeReciprocal("hm² (square hectometres)", "mi² (square miles)", 259);
+				// Square Hectometres to Acres
+				AreaUnitConversionsWholeReciprocal("ac (acres)", "hm² (square hectometres)", 2.471);
+
+				// Square Kilometres to Square Inches
+				AreaUnitConversionsWholeReciprocal("in² (square inches)", "km² (square kilometres)", 1550000000);
+				// Square Kilometres to Square Feet
+				AreaUnitConversionsWholeReciprocal("ft² (square feet)", "km² (square kilometres)", 10760000);
+				// Square Kilometres to Square Yards
+				AreaUnitConversionsWholeReciprocal("yd² (square yards)", "km² (square kilometres)", 1196000);
+				// Square Kilometres to Square Miles
+				AreaUnitConversionsWholeReciprocal("km² (square kilometres)", "mi² (square miles)", 2.59);
+				// Square Kilometres to Acres
+				AreaUnitConversionsWholeReciprocal("ac (acres)", "km² (square kilometres)", 247.1);
+
+				// Hectares to Square Inches
+				AreaUnitConversionsWholeReciprocal("in² (square inches)", "ha (hectares)", 15500000);
+				// Hectares to Square Feet
+				AreaUnitConversionsWholeReciprocal("ft² (square feet)", "ha (hectares)", 107600);
+				// Hectares to Square Yards
+				AreaUnitConversionsWholeReciprocal("yd² (square yards)", "ha (hectares)", 11960);
+				// Hectares to Square Miles
+				AreaUnitConversionsWholeReciprocal("ha (hectares)", "mi² (square miles)", 259);
+				// Hectares to Acres
+				AreaUnitConversionsWholeReciprocal("ac (acres)", "ha (hectares)", 2.471);
 			}
 		}
 

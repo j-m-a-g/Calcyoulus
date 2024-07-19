@@ -46,6 +46,11 @@
 
 						<StackLayout Orientation="Horizontal">
 
+							<Image
+								Margin="0,0,5,0"
+								HeightRequest="24"
+								Source="pi_96.png"
+								WidthRequest="24" />
 							<material:MaterialLabel
 								FontSize="18"
 								HorizontalOptions="Start"
@@ -420,6 +425,11 @@
 
 						<StackLayout Orientation="Horizontal">
 
+							<Image
+								Margin="0,0,5,0"
+								HeightRequest="24"
+								Source="unit_96.png"
+								WidthRequest="24" />
 							<material:MaterialLabel
 								FontSize="18"
 								HorizontalOptions="Start"
@@ -549,9 +559,191 @@
 									TextChanged="AreaValueMaterialTextField_TextChanged"
 									UnderlineColor="{DynamicResource GreenAccent1}" />
 
+								<!--  Volume Unit Conversions  -->
+								<material:MaterialLabel
+									Margin="0,20,0,0"
+									FontAttributes="Bold"
+									Text="📐  VOLUME"
+									TextColor="{DynamicResource DarkAccent1}" />
+
+								<Grid>
+
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="24" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+
+									<Picker
+										x:Name="FromVolumeUnitConversionsPicker"
+										Title="From"
+										Grid.Column="0"
+										ItemsSource="{DynamicResource VolumeUnitConversions}"
+										TextColor="{DynamicResource DarkAccent1}"
+										TitleColor="{DynamicResource DarkAccent3}" />
+									<Image
+										Grid.Column="1"
+										HeightRequest="24"
+										HorizontalOptions="Center"
+										Source="double_right_96.png"
+										VerticalOptions="Center"
+										WidthRequest="24" />
+									<Picker
+										x:Name="ToVolumeUnitConversionsPicker"
+										Title="To"
+										Grid.Column="2"
+										HorizontalTextAlignment="End"
+										ItemsSource="{DynamicResource VolumeUnitConversions}"
+										TextColor="{DynamicResource DarkAccent1}"
+										TitleColor="{DynamicResource DarkAccent3}" />
+
+								</Grid>
+
+								<material:MaterialTextField
+									x:Name="VolumeValueMaterialTextField"
+									AlwaysShowUnderline="True"
+									BackgroundColor="White"
+									InputType="Numeric"
+									Placeholder="Value"
+									PlaceholderColor="{DynamicResource DarkAccent1}"
+									UnderlineColor="{DynamicResource GreenAccent1}" />
+
 							</StackLayout>
 
 						</material:MaterialCard>
+
+					</material:MaterialCard>
+
+					<!--  Date Difference MaterialCard  -->
+					<material:MaterialCard
+						x:Name="DateDifferenceMaterialCard"
+						BackgroundColor="{DynamicResource GreenAccent2}"
+						Clicked="DateDifferenceMaterialCard_Clicked"
+						CornerRadius="10"
+						Elevation="0"
+						IsClickable="True">
+
+						<StackLayout Orientation="Horizontal">
+
+							<Image
+								Margin="0,0,5,0"
+								HeightRequest="24"
+								Source="schedule_96.png"
+								WidthRequest="24" />
+							<material:MaterialLabel
+								FontSize="18"
+								HorizontalOptions="Start"
+								Text="Date Difference"
+								TextColor="{DynamicResource DarkAccent1}"
+								VerticalOptions="Center" />
+							<material:MaterialIcon
+								x:Name="ExpandCollapseDateDifferenceMaterialIcon"
+								BackgroundColor="Transparent"
+								HeightRequest="24"
+								HorizontalOptions="EndAndExpand"
+								Source="expand_96.png"
+								VerticalOptions="Center"
+								WidthRequest="24" />
+
+						</StackLayout>
+
+					</material:MaterialCard>
+					<material:MaterialCard
+						x:Name="DateDifferenceExpandedMaterialCard"
+						BorderColor="{DynamicResource DarkAccent2}"
+						CornerRadius="10"
+						Elevation="0"
+						IsVisible="False">
+
+						<Grid>
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="*" />
+								<RowDefinition Height="*" />
+								<RowDefinition Height="*" />
+								<RowDefinition Height="*" />
+							</Grid.RowDefinitions>
+
+							<Label
+								Grid.ColumnSpan="2"
+								FontSize="16"
+								Text="Include a specific time for each date"
+								TextColor="{DynamicResource DarkAccent1}"
+								VerticalOptions="Center" />
+							<material:MaterialSwitch
+								x:Name="IncludeSpecificTimeForDateMaterialSwitch"
+								Activated="IncludeSpecificTimeForDateMaterialSwitch_Activated"
+								Grid.Column="1"
+								ActiveThumbColor="{DynamicResource GreenAccent1}"
+								ActiveTrackColor="{DynamicResource GreenAccent2}"
+								HorizontalOptions="End" />
+
+							<!--  First Date and Time Pair  -->
+							<material:MaterialDatePicker
+								x:Name="FirstMaterialDatePicker"
+								Grid.Row="1"
+								Grid.Column="0"
+								BackgroundColor="{DynamicResource LightAccent1}"
+								Date="2024/01/01"
+								TextColor="{DynamicResource DarkAccent1}" />
+							<material:MaterialTimePicker
+								x:Name="FirstDatePairMaterialTimePicker"
+								Grid.Row="1"
+								Grid.Column="1"
+								BackgroundColor="{DynamicResource LightAccent1}"
+								IsEnabled="False"
+								TextColor="{DynamicResource DarkAccent1}" />
+							<Image
+								Grid.Row="2"
+								Grid.Column="0"
+								Grid.ColumnSpan="2"
+								HeightRequest="48"
+								HorizontalOptions="Center"
+								Source="swap_96.png"
+								WidthRequest="48" />
+
+							<!--  Second Date and Time Pair  -->
+							<material:MaterialDatePicker
+								x:Name="SecondMaterialDatePicker"
+								Grid.Row="3"
+								Grid.Column="0"
+								BackgroundColor="{DynamicResource LightAccent1}"
+								Date="2024/01/01"
+								TextColor="{DynamicResource DarkAccent1}" />
+							<material:MaterialTimePicker
+								x:Name="SecondDatePairMaterialTimePicker"
+								Grid.Row="3"
+								Grid.Column="1"
+								BackgroundColor="{DynamicResource LightAccent1}"
+								IsEnabled="False"
+								TextColor="{DynamicResource DarkAccent1}" />
+
+							<material:MaterialCard
+								x:Name="FindDateDifferenceMaterialCard"
+								Clicked="FindDateDifferenceMaterialCard_Clicked"
+								Grid.Row="4"
+								Grid.Column="0"
+								Grid.ColumnSpan="2"
+								Margin="0,10,0,0"
+								BackgroundColor="{DynamicResource GreenAccent1}"
+								CornerRadius="100"
+								Elevation="0"
+								IsClickable="True">
+								<Label
+									FontSize="18"
+									HorizontalOptions="Center"
+									HorizontalTextAlignment="Center"
+									Text="Find Difference"
+									TextColor="{DynamicResource LightAccent1}" />
+							</material:MaterialCard>
+
+						</Grid>
 
 					</material:MaterialCard>
 
@@ -1086,11 +1278,30 @@
 			<x:String>dam² (square decametres)</x:String>
 			<x:String>hm² (square hectometres)</x:String>
 			<x:String>km² (square kilometres)</x:String>
+			<x:String>ha (hectares)</x:String>
 			<x:String>in² (square inches)</x:String>
 			<x:String>ft² (square feet)</x:String>
 			<x:String>yd² (square yards)</x:String>
 			<x:String>mi² (square miles)</x:String>
 			<x:String>ac (acres)</x:String>
+		</x:Array>
+
+		<x:Array x:Key="VolumeUnitConversions" Type="{x:Type x:String}">
+			<x:String>mm³ (cubic millimetres)</x:String>
+			<x:String>cm³ (cubic centimetres)</x:String>
+			<x:String>dm³ (cubic decimetres)</x:String>
+			<x:String>m³ (cubic metres)</x:String>
+			<x:String>dam³ (cubic decametres)</x:String>
+			<x:String>hm³ (cubic hectometres)</x:String>
+			<x:String>km³ (cubic kilometres)</x:String>
+			<x:String>fl oz (fluid ounces)</x:String>
+			<x:String>pt (pints)</x:String>
+			<x:String>qt (quarts)</x:String>
+			<x:String>gal (gallons)</x:String>
+			<x:String>in³ (cubic inches)</x:String>
+			<x:String>ft³ (cubic feet)</x:String>
+			<x:String>yd³ (cubic yards)</x:String>
+			<x:String>mi³ (cubic miles)</x:String>
 		</x:Array>
 
 		<x:Array x:Key="PreferredSystemForUnitsOfMeasure" Type="{x:Type x:String}">

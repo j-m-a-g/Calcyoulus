@@ -813,7 +813,7 @@
 							<Grid>
 
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
 									<ColumnDefinition Width="Auto" />
 									<ColumnDefinition Width="*" />
 									<ColumnDefinition Width="Auto" />
@@ -821,15 +821,15 @@
 									<ColumnDefinition Width="*" />
 								</Grid.ColumnDefinitions>
 
-								<!--  First Equation 'y' Value  -->
-								<material:MaterialTextField
+								<material:MaterialLabel
 									Grid.Column="0"
-									AlwaysShowUnderline="True"
-									BackgroundColor="White"
-									InputType="Numeric"
-									Placeholder="y"
-									PlaceholderColor="{DynamicResource DarkAccent1}"
-									UnderlineColor="{DynamicResource GreenAccent1}" />
+									FontSize="22"
+									HorizontalOptions="Center"
+									HorizontalTextAlignment="Center"
+									Text="y "
+									TextColor="{DynamicResource DarkAccent1}"
+									VerticalOptions="End"
+									VerticalTextAlignment="End" />
 								<material:MaterialLabel
 									Grid.Column="1"
 									FontSize="22"
@@ -892,7 +892,7 @@
 							<Grid>
 
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
 									<ColumnDefinition Width="Auto" />
 									<ColumnDefinition Width="*" />
 									<ColumnDefinition Width="Auto" />
@@ -900,15 +900,15 @@
 									<ColumnDefinition Width="*" />
 								</Grid.ColumnDefinitions>
 
-								<!--  Second Equation 'y' Value  -->
-								<material:MaterialTextField
+								<material:MaterialLabel
 									Grid.Column="0"
-									AlwaysShowUnderline="True"
-									BackgroundColor="White"
-									InputType="Numeric"
-									Placeholder="y"
-									PlaceholderColor="{DynamicResource DarkAccent1}"
-									UnderlineColor="{DynamicResource GreenAccent1}" />
+									FontSize="22"
+									HorizontalOptions="Center"
+									HorizontalTextAlignment="Center"
+									Text="y "
+									TextColor="{DynamicResource DarkAccent1}"
+									VerticalOptions="End"
+									VerticalTextAlignment="End" />
 								<material:MaterialLabel
 									Grid.Column="1"
 									FontSize="22"
@@ -967,6 +967,7 @@
 								x:Name="SolveSystemMaterialCard"
 								Margin="0,20,0,0"
 								BackgroundColor="{DynamicResource LightAccent1}"
+								Clicked="SolveSystemMaterialCard_Clicked"
 								CornerRadius="100"
 								Elevation="2"
 								IsClickable="True">

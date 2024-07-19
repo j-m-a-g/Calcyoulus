@@ -31,8 +31,10 @@ namespace Calcyoulus
 		string greenAccent1 = "#61d800";
 		string lightAccent2 = "#dedede";
 
-		// METHODS
+		// GLOBAL VARIABLES
+		string calculationAnswerEntryError = "Unable to calculate";
 
+		// METHODS
 		private void SwitchScrollViewPages(ScrollView currentPageScrollView, Xamarin.Forms.Shapes.Rectangle currentIndicatorRectangle, string currentTopAppBarPageLabelText, ImageButton currentDisabledImageButton)
 		{
 			// Check to see if the ScrollView page is visible
@@ -310,21 +312,31 @@ namespace Calcyoulus
 			// Checks to see if there is any numerical answer text
 			// in the CalculatedAnswerEntry to make it worthwhile
 			// allowing the user to copy their result.
-			if (CalculationAnswerEntry.Text != null)
-			{
-				CopyCalculatedAnswerImageButton.BackgroundColor = Color.FromHex(greenAccent1);
-				CopyCalculatedAnswerImageButton.IsEnabled = true;
-
-				ClearCalculatedAnswerEntryImageButton.BackgroundColor = Color.FromHex(greenAccent1);
-				ClearCalculatedAnswerEntryImageButton.IsEnabled = true;
-			}
-			else
+			if (CalculationAnswerEntry.Text == null || CalculationAnswerEntry.Text == "")
 			{
 				CopyCalculatedAnswerImageButton.BackgroundColor = Color.FromHex(lightAccent2);
 				CopyCalculatedAnswerImageButton.IsEnabled = false;
 
 				ClearCalculatedAnswerEntryImageButton.BackgroundColor = Color.FromHex(lightAccent2);
 				ClearCalculatedAnswerEntryImageButton.IsEnabled = false;
+			}
+			else if (CalculationAnswerEntry.Text == calculationAnswerEntryError ||
+					 CalculationAnswerEntry.Text == "No date difference" ||
+					 CalculationAnswerEntry.Text == "No date and time difference")
+			{
+				CopyCalculatedAnswerImageButton.BackgroundColor = Color.FromHex(lightAccent2);
+				CopyCalculatedAnswerImageButton.IsEnabled = false;
+
+				ClearCalculatedAnswerEntryImageButton.BackgroundColor = Color.FromHex(greenAccent1);
+				ClearCalculatedAnswerEntryImageButton.IsEnabled = true;
+			}
+			else
+			{
+				CopyCalculatedAnswerImageButton.BackgroundColor = Color.FromHex(greenAccent1);
+				CopyCalculatedAnswerImageButton.IsEnabled = true;
+
+				ClearCalculatedAnswerEntryImageButton.BackgroundColor = Color.FromHex(greenAccent1);
+				ClearCalculatedAnswerEntryImageButton.IsEnabled = true;
 			}
 		}
 
@@ -438,7 +450,10 @@ namespace Calcyoulus
 					{
 						TimeSpan secondGreaterDifference = secondDateTimePairSum - firstDateTimePairSum;
 						CalculationAnswerEntry.Text = $"{secondGreaterDifference.ToString()} days:hours:minutes:seconds";
-
+					}
+					else if (firstDateTimePairSum == secondDateTimePairSum)
+					{
+						CalculationAnswerEntry.Text = "No date and time difference";
 					}
 					break;
 				case false:
@@ -451,6 +466,10 @@ namespace Calcyoulus
 					{
 						TimeSpan secondDatePickerGreaterDifference = SecondMaterialDatePicker.Date - FirstMaterialDatePicker.Date;
 						CalculationAnswerEntry.Text = $"{secondDatePickerGreaterDifference.ToString().Trim(dateOnlyTrim)} days";
+					}
+					else if (FirstMaterialDatePicker.Date == SecondMaterialDatePicker.Date)
+					{
+						CalculationAnswerEntry.Text = "No date difference";
 					}
 					break;
 			}
@@ -777,6 +796,48 @@ namespace Calcyoulus
 				AreaUnitConversionsWholeReciprocal("ha (hectares)", "mi² (square miles)", 259);
 				// Hectares to Acres
 				AreaUnitConversionsWholeReciprocal("ac (acres)", "ha (hectares)", 2.471);
+			}
+		}
+
+		/* Linear Calculators ScrollView */
+		private void SolveSystemMaterialCard_Clicked(object sender, EventArgs e)
+		{
+			// Checks if user has inputted any value in the first
+			// place to prevent throwing an exception and crashing
+			if (FirstLinearSystemsEquationMValueMaterialTextField.Text == null ||
+				FirstLinearSystemsEquationMValueMaterialTextField.Text == "" ||
+				FirstLinearSystemsEquationBValueMaterialTextField.Text == null ||
+				FirstLinearSystemsEquationBValueMaterialTextField.Text == "" ||
+				SecondLinearSystemsEquationMValueMaterialTextField.Text == null ||
+				SecondLinearSystemsEquationMValueMaterialTextField.Text == "" ||
+				SecondLinearSystemsEquationBValueMaterialTextField.Text == null ||
+				SecondLinearSystemsEquationBValueMaterialTextField.Text == "")
+			{
+				CalculationAnswerEntry.Text = calculationAnswerEntryError;
+			}
+			else
+			{
+				double firstLinearSystemsEquationMDouble = int.Parse(FirstLinearSystemsEquationMValueMaterialTextField.Text);
+				double firstLinearSystemsEquationBDouble = int.Parse(FirstLinearSystemsEquationBValueMaterialTextField.Text);
+
+				double secondLinearSystemsEquationMDouble = int.Parse(SecondLinearSystemsEquationMValueMaterialTextField.Text);
+				double secondLinearSystemsEquationBDouble = int.Parse(SecondLinearSystemsEquationBValueMaterialTextField.Text);
+
+				// STEP 1: Cancel out and subtract the second linear equation's 'b' value from the first
+				double solveSystemFirstStep = secondLinearSystemsEquationBDouble - firstLinearSystemsEquationBDouble;
+
+				// STEP 2: Subtract first linear equation's 'm' value from the second (acts as coefficient for variable)
+				double solveSystemSecondStep = firstLinearSystemsEquationMDouble - secondLinearSystemsEquationMDouble;
+
+				// STEP 3: Divide the integer, "on the left side of the equation," by the, "coefficient"
+				// Point of Intersection X
+				double pointOfIntersectionXVal = solveSystemFirstStep / solveSystemSecondStep;
+
+				// Point of Intersection Y
+				double pointOfIntersectionYVal = firstLinearSystemsEquationMDouble * pointOfIntersectionXVal + firstLinearSystemsEquationBDouble;
+
+				// Output Answer
+				CalculationAnswerEntry.Text = $"P.O.I. = ({pointOfIntersectionXVal}, {pointOfIntersectionYVal})";
 			}
 		}
 

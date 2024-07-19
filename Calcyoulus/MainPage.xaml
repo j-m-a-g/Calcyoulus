@@ -46,7 +46,7 @@
 
 						<StackLayout Orientation="Horizontal">
 
-							<Image
+							<material:MaterialIcon
 								Margin="0,0,5,0"
 								HeightRequest="24"
 								Source="pi_96.png"
@@ -82,6 +82,7 @@
 
 							<material:MaterialLabel
 								FontAttributes="Bold"
+								FontSize="16"
 								Text="AREA"
 								TextColor="{DynamicResource DarkAccent1}" />
 
@@ -168,6 +169,7 @@
 
 							<material:MaterialLabel
 								FontAttributes="Bold"
+								FontSize="16"
 								Text="VOLUME"
 								TextColor="{DynamicResource DarkAccent1}" />
 
@@ -254,6 +256,7 @@
 
 							<material:MaterialLabel
 								FontAttributes="Bold"
+								FontSize="16"
 								Text="SURFACE AREA"
 								TextColor="{DynamicResource DarkAccent1}" />
 
@@ -340,6 +343,7 @@
 
 							<material:MaterialLabel
 								FontAttributes="Bold"
+								FontSize="16"
 								Text="PERIMETER"
 								TextColor="{DynamicResource DarkAccent1}" />
 
@@ -425,7 +429,7 @@
 
 						<StackLayout Orientation="Horizontal">
 
-							<Image
+							<material:MaterialIcon
 								Margin="0,0,5,0"
 								HeightRequest="24"
 								Source="unit_96.png"
@@ -462,6 +466,7 @@
 								<!--  Length Unit Conversions  -->
 								<material:MaterialLabel
 									FontAttributes="Bold"
+									FontSize="16"
 									Text="📏  LENGTH"
 									TextColor="{DynamicResource DarkAccent1}" />
 
@@ -513,6 +518,7 @@
 								<material:MaterialLabel
 									Margin="0,20,0,0"
 									FontAttributes="Bold"
+									FontSize="16"
 									Text="🟦  AREA"
 									TextColor="{DynamicResource DarkAccent1}" />
 
@@ -563,6 +569,7 @@
 								<material:MaterialLabel
 									Margin="0,20,0,0"
 									FontAttributes="Bold"
+									FontSize="16"
 									Text="📐  VOLUME"
 									TextColor="{DynamicResource DarkAccent1}" />
 
@@ -625,7 +632,7 @@
 
 						<StackLayout Orientation="Horizontal">
 
-							<Image
+							<material:MaterialIcon
 								Margin="0,0,5,0"
 								HeightRequest="24"
 								Source="schedule_96.png"
@@ -771,7 +778,210 @@
 				IsVisible="False"
 				VerticalScrollBarVisibility="Default">
 
-				<StackLayout />
+				<StackLayout>
+
+					<!--  Linear Systems  -->
+					<material:MaterialCard
+						BorderColor="{DynamicResource DarkAccent2}"
+						CornerRadius="10"
+						Elevation="0">
+
+						<StackLayout>
+
+							<StackLayout Orientation="Horizontal">
+
+								<material:MaterialIcon
+									Margin="0,0,5,0"
+									HeightRequest="24"
+									Source="long_position_96.png"
+									WidthRequest="24" />
+								<material:MaterialLabel
+									FontAttributes="Bold"
+									FontSize="16"
+									HorizontalOptions="Start"
+									Text="LINEAR SYSTEMS"
+									TextColor="{DynamicResource DarkAccent1}"
+									VerticalOptions="Center" />
+
+							</StackLayout>
+
+							<!--  First Equation User Input  -->
+							<material:MaterialLabel
+								Margin="0,10,0,0"
+								FontSize="16"
+								Text="First Equation" />
+							<Grid>
+
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+
+								<!--  First Equation 'y' Value  -->
+								<material:MaterialTextField
+									Grid.Column="0"
+									AlwaysShowUnderline="True"
+									BackgroundColor="White"
+									InputType="Numeric"
+									Placeholder="y"
+									PlaceholderColor="{DynamicResource DarkAccent1}"
+									UnderlineColor="{DynamicResource GreenAccent1}" />
+								<material:MaterialLabel
+									Grid.Column="1"
+									FontSize="22"
+									HorizontalOptions="Center"
+									HorizontalTextAlignment="Center"
+									Text="="
+									TextColor="{DynamicResource DarkAccent1}"
+									VerticalOptions="End"
+									VerticalTextAlignment="End" />
+
+								<!--  First Equation 'm' Value  -->
+								<material:MaterialTextField
+									x:Name="FirstLinearSystemsEquationMValueMaterialTextField"
+									Grid.Column="2"
+									AlwaysShowUnderline="True"
+									BackgroundColor="White"
+									InputType="Numeric"
+									Placeholder="m"
+									PlaceholderColor="{DynamicResource DarkAccent1}"
+									UnderlineColor="{DynamicResource GreenAccent1}" />
+
+								<!--  First Equation 'x' value  -->
+								<material:MaterialLabel
+									Grid.Column="3"
+									FontSize="22"
+									HorizontalOptions="Center"
+									HorizontalTextAlignment="Center"
+									Text="x "
+									TextColor="{DynamicResource DarkAccent1}"
+									VerticalOptions="End"
+									VerticalTextAlignment="End" />
+								<material:MaterialLabel
+									Grid.Column="4"
+									FontSize="22"
+									HorizontalOptions="Center"
+									HorizontalTextAlignment="Center"
+									Text="+"
+									TextColor="{DynamicResource DarkAccent1}"
+									VerticalOptions="End"
+									VerticalTextAlignment="End" />
+
+								<!--  First Equation 'b' value  -->
+								<material:MaterialTextField
+									x:Name="FirstLinearSystemsEquationBValueMaterialTextField"
+									Grid.Column="5"
+									AlwaysShowUnderline="True"
+									BackgroundColor="White"
+									InputType="Numeric"
+									Placeholder="b"
+									PlaceholderColor="{DynamicResource DarkAccent1}"
+									UnderlineColor="{DynamicResource GreenAccent1}" />
+
+							</Grid>
+
+							<!--  Second Equation User Input  -->
+							<material:MaterialLabel
+								Margin="0,15,0,0"
+								FontSize="16"
+								Text="Second Equation" />
+							<Grid>
+
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+
+								<!--  Second Equation 'y' Value  -->
+								<material:MaterialTextField
+									Grid.Column="0"
+									AlwaysShowUnderline="True"
+									BackgroundColor="White"
+									InputType="Numeric"
+									Placeholder="y"
+									PlaceholderColor="{DynamicResource DarkAccent1}"
+									UnderlineColor="{DynamicResource GreenAccent1}" />
+								<material:MaterialLabel
+									Grid.Column="1"
+									FontSize="22"
+									HorizontalOptions="Center"
+									HorizontalTextAlignment="Center"
+									Text="="
+									TextColor="{DynamicResource DarkAccent1}"
+									VerticalOptions="End"
+									VerticalTextAlignment="End" />
+
+								<!--  Second Equation 'm' Value  -->
+								<material:MaterialTextField
+									x:Name="SecondLinearSystemsEquationMValueMaterialTextField"
+									Grid.Column="2"
+									AlwaysShowUnderline="True"
+									BackgroundColor="White"
+									InputType="Numeric"
+									Placeholder="m"
+									PlaceholderColor="{DynamicResource DarkAccent1}"
+									UnderlineColor="{DynamicResource GreenAccent1}" />
+
+								<!--  Second Equation 'x' value  -->
+								<material:MaterialLabel
+									Grid.Column="3"
+									FontSize="22"
+									HorizontalOptions="Center"
+									HorizontalTextAlignment="Center"
+									Text="x "
+									TextColor="{DynamicResource DarkAccent1}"
+									VerticalOptions="End"
+									VerticalTextAlignment="End" />
+								<material:MaterialLabel
+									Grid.Column="4"
+									FontSize="22"
+									HorizontalOptions="Center"
+									HorizontalTextAlignment="Center"
+									Text="+"
+									TextColor="{DynamicResource DarkAccent1}"
+									VerticalOptions="End"
+									VerticalTextAlignment="End" />
+
+								<!--  Second Equation 'b' value  -->
+								<material:MaterialTextField
+									x:Name="SecondLinearSystemsEquationBValueMaterialTextField"
+									Grid.Column="5"
+									AlwaysShowUnderline="True"
+									BackgroundColor="White"
+									InputType="Numeric"
+									Placeholder="b"
+									PlaceholderColor="{DynamicResource DarkAccent1}"
+									UnderlineColor="{DynamicResource GreenAccent1}" />
+
+							</Grid>
+
+							<material:MaterialCard
+								x:Name="SolveSystemMaterialCard"
+								Margin="0,20,0,0"
+								BackgroundColor="{DynamicResource LightAccent1}"
+								CornerRadius="100"
+								Elevation="2"
+								IsClickable="True">
+								<material:MaterialLabel
+									FontSize="18"
+									HorizontalOptions="Center"
+									Text="Solve System"
+									TextColor="{DynamicResource DarkAccent1}" />
+							</material:MaterialCard>
+
+						</StackLayout>
+
+					</material:MaterialCard>
+
+				</StackLayout>
 
 			</ScrollView>
 
@@ -1011,7 +1221,7 @@
 						Margin="0,0,0,10"
 						FontSize="20"
 						HorizontalOptions="Center"
-						Text="Calcyoulus v1.26.4"
+						Text="Calcyoulus v1.27.4"
 						TextColor="{DynamicResource DarkAccent1}" />
 					<material:MaterialLabel
 						Margin="0,0,0,10"

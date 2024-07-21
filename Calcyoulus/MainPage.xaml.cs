@@ -2,6 +2,7 @@
 using Xamanimation;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using XF.Material.Forms.UI;
 using XF.Material.Forms.UI.Dialogs;
 
 namespace Calcyoulus
@@ -32,7 +33,7 @@ namespace Calcyoulus
 		string lightAccent2 = "#dedede";
 
 		// GLOBAL VARIABLES
-		string calculationAnswerEntryError = "Unable to calculate";
+		string calculationAnswerEntryError = "Not all required values have been inputted";
 
 		// METHODS
 		private void SwitchScrollViewPages(ScrollView currentPageScrollView, Xamarin.Forms.Shapes.Rectangle currentIndicatorRectangle, string currentTopAppBarPageLabelText, ImageButton currentDisabledImageButton)
@@ -208,6 +209,36 @@ namespace Calcyoulus
 			else if (FromAreaUnitConversionsPicker.SelectedItem == ToAreaUnitConversionsPicker.SelectedItem)
 			{
 				ToAreaUnitConversionsPicker.SelectedItem = null;
+			}
+		}
+
+		private void EnableOrDisableMaterialCardButton(MaterialCard correspondingButton, bool enabledOrDisabledBool, Color enabledColor)
+		{
+			switch (enabledOrDisabledBool)
+			{
+				case true:
+					correspondingButton.IsEnabled = true;
+					correspondingButton.BackgroundColor = enabledColor;
+					break;
+				case false:
+					correspondingButton.IsEnabled = false;
+					correspondingButton.BackgroundColor = Color.FromHex(lightAccent2);
+					break;
+			}
+		}
+
+		private void XOrYInterceptChange(MaterialSwitch activeSwitch, MaterialTextField interceptChanged, MaterialCard enabledOrDisabledInterceptButton)
+		{
+			switch (activeSwitch.IsActivated)
+			{
+				case true:
+					EnableOrDisableMaterialCardButton(enabledOrDisabledInterceptButton, false, Color.White);
+					interceptChanged.Text = "0";
+					break;
+				case false:
+					EnableOrDisableMaterialCardButton(enabledOrDisabledInterceptButton, true, Color.White);
+					interceptChanged.Text = "";
+					break;
 			}
 		}
 
@@ -839,6 +870,132 @@ namespace Calcyoulus
 				// Output Answer
 				CalculationAnswerEntry.Text = $"P.O.I. = ({pointOfIntersectionXVal}, {pointOfIntersectionYVal})";
 			}
+		}
+
+		private void TwoPointsModeMaterialRadioButton_SelectedChanged(object sender, XF.Material.Forms.UI.SelectedChangedEventArgs e)
+		{
+			switch (TwoPointsModeMaterialRadioButton.IsSelected)
+			{
+				case true:
+					PointAndEquationModeMaterialRadioButton.IsSelected = false;
+					TwoPointsModeStackLayout.IsVisible = true;
+					break;
+				case false:
+					TwoPointsModeStackLayout.IsVisible = false;
+					break;
+			}
+		}
+
+		private void TwoPointsModeFindSlopeMaterialCard_Clicked(object sender, EventArgs e)
+		{
+			// Checks if user has inputted any value in the first
+			// place to prevent throwing an exception and crashing
+			if (XFirstPointTwoPointsModeMaterialTextField.Text == null ||
+				XFirstPointTwoPointsModeMaterialTextField.Text == "" ||
+				YFirstPointTwoPointsModeMaterialTextField.Text == null ||
+				YFirstPointTwoPointsModeMaterialTextField.Text == "" ||
+				XSecondPointTwoPointsModeMaterialTextField.Text == null ||
+				XSecondPointTwoPointsModeMaterialTextField.Text == "" ||
+				YSecondPointTwoPointsModeMaterialTextField.Text == null ||
+				YSecondPointTwoPointsModeMaterialTextField.Text == "")
+			{
+				CalculationAnswerEntry.Text = calculationAnswerEntryError;
+			}
+			else
+			{
+				// First Point's Parsed Variables
+				double xFirstPointTwoPointsMode = int.Parse(XFirstPointTwoPointsModeMaterialTextField.Text);
+				double yFirstPointTwoPointsMode = int.Parse(YFirstPointTwoPointsModeMaterialTextField.Text);
+
+				// Second Point's Parsed Variables
+				double xSecondPointTwoPointsMode = int.Parse(XSecondPointTwoPointsModeMaterialTextField.Text);
+				double ySecondPointTwoPointsMode = int.Parse(YSecondPointTwoPointsModeMaterialTextField.Text);
+
+				// STEP 1: Subtract second point's 'y' value by the first point's 'y' value
+				double twoPointsModeFindSlopeFirstStep = ySecondPointTwoPointsMode - yFirstPointTwoPointsMode;
+
+				// STEP 2: Subtract second point's 'x' value by the first point's 'x' value
+				double twoPointsModeFindSlopeSecondStep = xSecondPointTwoPointsMode - xFirstPointTwoPointsMode;
+
+				// STEP 3: Divide the result of the first step by the second step
+				double twoPointsModeFindSlopeThirdStep = twoPointsModeFindSlopeFirstStep / twoPointsModeFindSlopeSecondStep;
+
+				// Output Answer
+				CalculationAnswerEntry.Text = $"m = {twoPointsModeFindSlopeThirdStep}";
+
+				if (CalculationAnswerEntry.Text == "m = NaN" || CalculationAnswerEntry.Text == "m = Infinity")
+				{
+					CalculationAnswerEntry.Text = "m = Undefined";
+				}
+			}
+		}
+
+		private void TwoPointsModeFindEquationMaterialCard_Clicked(object sender, EventArgs e)
+		{
+			// Checks if user has inputted any value in the first
+			// place to prevent throwing an exception and crashing
+			if (XFirstPointTwoPointsModeMaterialTextField.Text == null ||
+				XFirstPointTwoPointsModeMaterialTextField.Text == "" ||
+				YFirstPointTwoPointsModeMaterialTextField.Text == null ||
+				YFirstPointTwoPointsModeMaterialTextField.Text == "" ||
+				XSecondPointTwoPointsModeMaterialTextField.Text == null ||
+				XSecondPointTwoPointsModeMaterialTextField.Text == "" ||
+				YSecondPointTwoPointsModeMaterialTextField.Text == null ||
+				YSecondPointTwoPointsModeMaterialTextField.Text == "")
+			{
+				CalculationAnswerEntry.Text = calculationAnswerEntryError;
+			}
+			else if (XFirstPointTwoPointsModeMaterialTextField.Text == XSecondPointTwoPointsModeMaterialTextField.Text)
+			{
+				CalculationAnswerEntry.Text = $"x = {XFirstPointTwoPointsModeMaterialTextField.Text}";
+			}
+			else
+			{
+				// First Point's Parsed Variables
+				double xFirstPointTwoPointsMode = int.Parse(XFirstPointTwoPointsModeMaterialTextField.Text);
+				double yFirstPointTwoPointsMode = int.Parse(YFirstPointTwoPointsModeMaterialTextField.Text);
+
+				// Second Point's Parsed Variables
+				double xSecondPointTwoPointsMode = int.Parse(XSecondPointTwoPointsModeMaterialTextField.Text);
+				double ySecondPointTwoPointsMode = int.Parse(YSecondPointTwoPointsModeMaterialTextField.Text);
+
+				// STEP 1: Subtract second point's 'y' value by the first point's 'y' value
+				double twoPointsModeFindEquationFirstStep = ySecondPointTwoPointsMode - yFirstPointTwoPointsMode;
+
+				// STEP 2: Subtract second point's 'x' value by the first point's 'x' value
+				double twoPointsModeFindEquationSecondStep = xSecondPointTwoPointsMode - xFirstPointTwoPointsMode;
+
+				// STEP 3: Divide the result of the first step by the second step to get the slope
+				double twoPointsModeFindEquationThirdStep = twoPointsModeFindEquationFirstStep / twoPointsModeFindEquationSecondStep;
+
+				// STEP 4: Multiply the first point's 'x' value by the slope
+				double twoPointsModeFindEquationFourthStep = xFirstPointTwoPointsMode * twoPointsModeFindEquationThirdStep;
+
+				// STEP 5: Subtract the first point's 'y' value by result in Step 4 
+				double twoPointsModeFindEquationFifthStep = yFirstPointTwoPointsMode - twoPointsModeFindEquationFourthStep;
+
+				// Output Answer
+				string twoPointsModeFindEquationAnswer = $"y = {twoPointsModeFindEquationThirdStep}x + {twoPointsModeFindEquationFifthStep}";
+				CalculationAnswerEntry.Text = twoPointsModeFindEquationAnswer;
+
+				// Simplifies calculated equation if an unnecessary coefficient of '0' is
+				// applied to 'x'
+				if (CalculationAnswerEntry.Text.Contains("0x"))
+				{
+					string simplifiedEquation = twoPointsModeFindEquationAnswer.Remove(4, 5);
+					CalculationAnswerEntry.Text = simplifiedEquation;
+				}
+			}
+		}
+
+		private void TwoPointsModeXInterceptMaterialSwitch_Activated(object sender, ActivatedEventArgs e)
+		{
+			XOrYInterceptChange(TwoPointsModeXInterceptMaterialSwitch, YFirstPointTwoPointsModeMaterialTextField, TwoPointsModeFindXInterceptMaterialCard);
+		}
+
+		private void TwoPointsModeYInterceptMaterialSwitch_Activated(object sender, ActivatedEventArgs e)
+		{
+			XOrYInterceptChange(TwoPointsModeYInterceptMaterialSwitch, XSecondPointTwoPointsModeMaterialTextField, TwoPointsModeFindYInterceptMaterialCard);
 		}
 
 		/* Settings Page ScrollView */

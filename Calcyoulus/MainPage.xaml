@@ -780,6 +780,338 @@
 
 				<StackLayout>
 
+					<!--  Slope, Intercepts, and Linear Equations  -->
+					<material:MaterialCard
+						BorderColor="{DynamicResource DarkAccent2}"
+						CornerRadius="10"
+						Elevation="0">
+
+						<StackLayout>
+
+							<StackLayout Orientation="Horizontal">
+
+								<material:MaterialIcon
+									Margin="0,0,5,0"
+									HeightRequest="24"
+									Source="graph_96.png"
+									WidthRequest="24" />
+								<material:MaterialLabel
+									FontAttributes="Bold"
+									FontSize="16"
+									HorizontalOptions="Start"
+									Text="SLOPE, INTERCEPTS, AND EQUATIONS"
+									TextColor="{DynamicResource DarkAccent1}"
+									VerticalOptions="Center" />
+
+							</StackLayout>
+
+							<!--  Slope of a Line  -->
+							<material:MaterialLabel
+								Margin="0,10,0,0"
+								FontAttributes="Bold"
+								FontSize="16"
+								Text="Modes" />
+
+							<!--  Modes  -->
+							<Grid x:Name="ModesSelectionGrid">
+
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+
+								<material:MaterialRadioButton
+									x:Name="TwoPointsModeMaterialRadioButton"
+									Grid.Column="0"
+									HorizontalOptions="Center"
+									SelectedChanged="TwoPointsModeMaterialRadioButton_SelectedChanged"
+									SelectedColor="{DynamicResource GreenAccent1}"
+									Text="Two Points"
+									VerticalOptions="Center" />
+								<material:MaterialRadioButton
+									x:Name="PointAndEquationModeMaterialRadioButton"
+									Grid.Column="1"
+									HorizontalOptions="Center"
+									SelectedColor="{DynamicResource GreenAccent1}"
+									Text="Point And Equation"
+									VerticalOptions="Center" />
+
+							</Grid>
+
+							<!--  Two Points  -->
+							<StackLayout x:Name="TwoPointsModeStackLayout" IsVisible="False">
+
+								<Grid>
+
+									<Grid.ColumnDefinitions>
+										<!--  First Point's Portion of Grid  -->
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="Auto" />
+
+										<!--  Second Point's Portion of Grid  -->
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
+
+									<Grid.RowDefinitions>
+										<RowDefinition Height="20" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+
+									<!--  First Point  -->
+									<material:MaterialLabel
+										Grid.Row="0"
+										Grid.Column="0"
+										Grid.ColumnSpan="2"
+										Text="First Point" />
+									<material:MaterialLabel
+										Grid.Row="1"
+										Grid.Column="0"
+										FontSize="22"
+										HorizontalOptions="Center"
+										HorizontalTextAlignment="Center"
+										Text="("
+										TextColor="{DynamicResource DarkAccent1}"
+										VerticalOptions="End"
+										VerticalTextAlignment="End" />
+									<material:MaterialTextField
+										x:Name="XFirstPointTwoPointsModeMaterialTextField"
+										Grid.Row="1"
+										Grid.Column="1"
+										AlwaysShowUnderline="True"
+										BackgroundColor="White"
+										InputType="Numeric"
+										Placeholder="x"
+										UnderlineColor="{DynamicResource GreenAccent1}" />
+									<material:MaterialLabel
+										Grid.Row="1"
+										Grid.Column="2"
+										FontSize="22"
+										HorizontalOptions="Center"
+										HorizontalTextAlignment="Center"
+										Text=","
+										TextColor="{DynamicResource DarkAccent1}"
+										VerticalOptions="End"
+										VerticalTextAlignment="End" />
+									<material:MaterialTextField
+										x:Name="YFirstPointTwoPointsModeMaterialTextField"
+										Grid.Row="1"
+										Grid.Column="3"
+										AlwaysShowUnderline="True"
+										BackgroundColor="White"
+										InputType="Numeric"
+										Placeholder="y"
+										UnderlineColor="{DynamicResource GreenAccent1}" />
+									<material:MaterialLabel
+										Grid.Row="1"
+										Grid.Column="4"
+										FontSize="22"
+										HorizontalOptions="Center"
+										HorizontalTextAlignment="Center"
+										Text=")"
+										TextColor="{DynamicResource DarkAccent1}"
+										VerticalOptions="End"
+										VerticalTextAlignment="End" />
+
+									<!--  Second Point  -->
+									<material:MaterialLabel
+										Grid.Row="0"
+										Grid.Column="5"
+										Grid.ColumnSpan="3"
+										Text="Second Point" />
+									<material:MaterialLabel
+										Grid.Row="1"
+										Grid.Column="5"
+										FontSize="22"
+										HorizontalOptions="Center"
+										HorizontalTextAlignment="Center"
+										Text="("
+										TextColor="{DynamicResource DarkAccent1}"
+										VerticalOptions="End"
+										VerticalTextAlignment="End" />
+									<material:MaterialTextField
+										x:Name="XSecondPointTwoPointsModeMaterialTextField"
+										Grid.Row="1"
+										Grid.Column="6"
+										AlwaysShowUnderline="True"
+										BackgroundColor="White"
+										InputType="Numeric"
+										Placeholder="x"
+										UnderlineColor="{DynamicResource GreenAccent1}" />
+									<material:MaterialLabel
+										Grid.Row="1"
+										Grid.Column="7"
+										FontSize="22"
+										HorizontalOptions="Center"
+										HorizontalTextAlignment="Center"
+										Text=","
+										TextColor="{DynamicResource DarkAccent1}"
+										VerticalOptions="End"
+										VerticalTextAlignment="End" />
+									<material:MaterialTextField
+										x:Name="YSecondPointTwoPointsModeMaterialTextField"
+										Grid.Row="1"
+										Grid.Column="8"
+										AlwaysShowUnderline="True"
+										BackgroundColor="White"
+										InputType="Numeric"
+										Placeholder="y"
+										UnderlineColor="{DynamicResource GreenAccent1}" />
+									<material:MaterialLabel
+										Grid.Row="1"
+										Grid.Column="9"
+										FontSize="22"
+										HorizontalOptions="Center"
+										HorizontalTextAlignment="Center"
+										Text=")"
+										TextColor="{DynamicResource DarkAccent1}"
+										VerticalOptions="End"
+										VerticalTextAlignment="End" />
+
+									<!--  X and Y Intercept Switches  -->
+									<StackLayout
+										Grid.Row="2"
+										Grid.Column="0"
+										Grid.ColumnSpan="5"
+										Orientation="Horizontal">
+
+										<material:MaterialLabel
+											Margin="0,0,5,0"
+											Text="X-Intercept"
+											VerticalOptions="Center" />
+										<material:MaterialSwitch
+											x:Name="TwoPointsModeXInterceptMaterialSwitch"
+											Activated="TwoPointsModeXInterceptMaterialSwitch_Activated"
+											ActiveThumbColor="{DynamicResource GreenAccent1}"
+											ActiveTrackColor="{DynamicResource GreenAccent2}" />
+
+									</StackLayout>
+
+									<StackLayout
+										Grid.Row="2"
+										Grid.Column="5"
+										Grid.ColumnSpan="5"
+										Orientation="Horizontal">
+
+										<material:MaterialLabel
+											Margin="0,0,5,0"
+											Text="Y-Intercept"
+											VerticalOptions="Center" />
+										<material:MaterialSwitch
+											x:Name="TwoPointsModeYInterceptMaterialSwitch"
+											Activated="TwoPointsModeYInterceptMaterialSwitch_Activated"
+											ActiveThumbColor="{DynamicResource GreenAccent1}"
+											ActiveTrackColor="{DynamicResource GreenAccent2}" />
+
+									</StackLayout>
+
+								</Grid>
+
+								<Grid>
+
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+
+									<!--  Button to Calculate the Slope For the Two Points  -->
+									<material:MaterialCard
+										x:Name="TwoPointsModeFindSlopeMaterialCard"
+										Grid.Row="0"
+										Grid.Column="0"
+										Margin="0,20,0,0"
+										BackgroundColor="{DynamicResource LightAccent1}"
+										Clicked="TwoPointsModeFindSlopeMaterialCard_Clicked"
+										CornerRadius="100"
+										Elevation="2"
+										IsClickable="True">
+										<material:MaterialLabel
+											FontSize="18"
+											HorizontalOptions="Center"
+											Text="Find Slope"
+											TextColor="{DynamicResource DarkAccent1}" />
+									</material:MaterialCard>
+
+									<!--  Button to Find the Equation of the Two Points  -->
+									<material:MaterialCard
+										x:Name="TwoPointsModeFindEquationMaterialCard"
+										Grid.Row="0"
+										Grid.Column="1"
+										Margin="0,20,0,0"
+										BackgroundColor="{DynamicResource LightAccent1}"
+										Clicked="TwoPointsModeFindEquationMaterialCard_Clicked"
+										CornerRadius="100"
+										Elevation="2"
+										IsClickable="True">
+										<material:MaterialLabel
+											FontSize="18"
+											HorizontalOptions="Center"
+											Text="Find Equation"
+											TextColor="{DynamicResource DarkAccent1}" />
+									</material:MaterialCard>
+
+									<!--
+										Button to Find the X-Intercept of the Line Formed From
+										the Two Points
+									-->
+									<material:MaterialCard
+										x:Name="TwoPointsModeFindXInterceptMaterialCard"
+										Grid.Row="1"
+										Grid.Column="0"
+										Margin="0,20,0,0"
+										BackgroundColor="{DynamicResource LightAccent1}"
+										CornerRadius="100"
+										Elevation="2"
+										IsClickable="True">
+										<material:MaterialLabel
+											FontSize="18"
+											HorizontalOptions="Center"
+											HorizontalTextAlignment="Center"
+											Text="Find the Line's X-Intercept"
+											TextColor="{DynamicResource DarkAccent1}" />
+									</material:MaterialCard>
+
+									<!--
+										Button to Find the Y-Intercept of the Line Formed From
+										the Two Points
+									-->
+									<material:MaterialCard
+										x:Name="TwoPointsModeFindYInterceptMaterialCard"
+										Grid.Row="1"
+										Grid.Column="1"
+										Margin="0,20,0,0"
+										BackgroundColor="{DynamicResource LightAccent1}"
+										CornerRadius="100"
+										Elevation="2"
+										IsClickable="True">
+										<material:MaterialLabel
+											FontSize="18"
+											HorizontalOptions="Center"
+											HorizontalTextAlignment="Center"
+											Text="Find the Line's Y-Intercept"
+											TextColor="{DynamicResource DarkAccent1}" />
+									</material:MaterialCard>
+
+								</Grid>
+
+							</StackLayout>
+
+						</StackLayout>
+
+					</material:MaterialCard>
+
 					<!--  Linear Systems  -->
 					<material:MaterialCard
 						BorderColor="{DynamicResource DarkAccent2}"
@@ -1619,6 +1951,11 @@
 		<x:Array x:Key="PreferredSystemForUnitsOfMeasure" Type="{x:Type x:String}">
 			<x:String>Imperial</x:String>
 			<x:String>Metric</x:String>
+		</x:Array>
+
+		<x:Array x:Key="SlopeOfLineChoicesArray" Type="{x:Type x:String}">
+			<x:String>Two Points</x:String>
+			<x:String>Point and Equation</x:String>
 		</x:Array>
 
 	</ContentPage.Resources>

@@ -308,8 +308,8 @@ namespace Calcyoulus
 				case 9:
 					AnswerUnitPicker.SelectedIndex = 10;
 					break;
-				case 17:
-					AnswerUnitPicker.SelectedIndex = 18;
+				case 18:
+					AnswerUnitPicker.SelectedIndex = 19;
 					break;
 			}
 		}
@@ -988,6 +988,55 @@ namespace Calcyoulus
 			}
 		}
 
+		private void TwoPointsModeFindYInterceptMaterialCard_Clicked(object sender, EventArgs e)
+		{
+			// Involves same equation step structure as finding the equation,
+			// however, only displays the '+ b' portion of the calculation
+			// to the user
+
+			// Checks if user has inputted any value in the first
+			// place to prevent throwing an exception and crashing
+			if (XFirstPointTwoPointsModeMaterialTextField.Text == null ||
+				XFirstPointTwoPointsModeMaterialTextField.Text == "" ||
+				YFirstPointTwoPointsModeMaterialTextField.Text == null ||
+				YFirstPointTwoPointsModeMaterialTextField.Text == "" ||
+				XSecondPointTwoPointsModeMaterialTextField.Text == null ||
+				XSecondPointTwoPointsModeMaterialTextField.Text == "" ||
+				YSecondPointTwoPointsModeMaterialTextField.Text == null ||
+				YSecondPointTwoPointsModeMaterialTextField.Text == "")
+			{
+				CalculationAnswerEntry.Text = calculationAnswerEntryError;
+			}
+			else
+			{
+				// First Point's Parsed Variables
+				double xFirstPointTwoPointsMode = int.Parse(XFirstPointTwoPointsModeMaterialTextField.Text);
+				double yFirstPointTwoPointsMode = int.Parse(YFirstPointTwoPointsModeMaterialTextField.Text);
+
+				// Second Point's Parsed Variables
+				double xSecondPointTwoPointsMode = int.Parse(XSecondPointTwoPointsModeMaterialTextField.Text);
+				double ySecondPointTwoPointsMode = int.Parse(YSecondPointTwoPointsModeMaterialTextField.Text);
+
+				// STEP 1: Subtract second point's 'y' value by the first point's 'y' value
+				double twoPointsModeFindEquationFirstStep = ySecondPointTwoPointsMode - yFirstPointTwoPointsMode;
+
+				// STEP 2: Subtract second point's 'x' value by the first point's 'x' value
+				double twoPointsModeFindEquationSecondStep = xSecondPointTwoPointsMode - xFirstPointTwoPointsMode;
+
+				// STEP 3: Divide the result of the first step by the second step to get the slope
+				double twoPointsModeFindEquationThirdStep = twoPointsModeFindEquationFirstStep / twoPointsModeFindEquationSecondStep;
+
+				// STEP 4: Multiply the first point's 'x' value by the slope
+				double twoPointsModeFindEquationFourthStep = xFirstPointTwoPointsMode * twoPointsModeFindEquationThirdStep;
+
+				// STEP 5: Subtract the first point's 'y' value by result in Step 4 
+				double twoPointsModeFindEquationFifthStep = yFirstPointTwoPointsMode - twoPointsModeFindEquationFourthStep;
+
+				// Output Answer
+				CalculationAnswerEntry.Text = twoPointsModeFindEquationFifthStep.ToString();
+			}
+		}
+
 		private void TwoPointsModeXInterceptMaterialSwitch_Activated(object sender, ActivatedEventArgs e)
 		{
 			XOrYInterceptChange(TwoPointsModeXInterceptMaterialSwitch, YFirstPointTwoPointsModeMaterialTextField, TwoPointsModeFindXInterceptMaterialCard);
@@ -1056,7 +1105,7 @@ namespace Calcyoulus
 			ResetAppPreferencesMaterialCard.IsVisible = true;
 		}
 
-		private void AlwaysShowClearButtonMaterialSwitch_Activated(object sender, XF.Material.Forms.UI.ActivatedEventArgs e)
+		private void AlwaysShowClearButtonMaterialSwitch_Activated(object sender, ActivatedEventArgs e)
 		{
 			switch (AlwaysShowClearButtonMaterialSwitch.IsActivated)
 			{

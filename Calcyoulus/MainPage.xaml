@@ -1090,6 +1090,7 @@
 									<material:MaterialCard
 										x:Name="TwoPointsModeFindYInterceptMaterialCard"
 										Grid.Row="1"
+										Clicked="TwoPointsModeFindYInterceptMaterialCard_Clicked"
 										Grid.Column="1"
 										Margin="0,20,0,0"
 										BackgroundColor="{DynamicResource LightAccent1}"
@@ -1864,6 +1865,7 @@
 			<x:String>dam²</x:String>
 			<x:String>hm²</x:String>
 			<x:String>km²</x:String>
+			<x:String>ha</x:String>
 			<x:String>VOLUME</x:String>
 			<x:String>mm³</x:String>
 			<x:String>cm³</x:String>

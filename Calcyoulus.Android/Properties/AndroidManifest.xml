@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.27.4" package="com.companyname.calcyoulus">
-	<uses-sdk android:minSdkVersion="32" android:targetSdkVersion="35" />
+	<uses-sdk android:minSdkVersion="34" android:targetSdkVersion="35" />
 	<application android:label="Calcyoulus" android:theme="@style/MainTheme" android:icon="@drawable/calcyoulus_brand"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>
